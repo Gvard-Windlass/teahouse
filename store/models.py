@@ -56,3 +56,14 @@ class Tea(Product):
 
     class Meta:
         proxy = True
+
+
+class UtensilManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(product_type='Utensil')
+
+class Utensil(Product):
+    objects = UtensilManager()
+
+    class Meta:
+        proxy = True
