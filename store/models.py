@@ -45,3 +45,14 @@ class Product(models.Model):
     utensil_type = models.CharField(choices=UtensilType.choices, max_length=20, null=True)
     utensil_material = models.CharField(choices = UtensilMaterial.choices, max_length=20, null=True)
     utensil_amount = models.PositiveIntegerField(null=True)
+
+
+class TeaManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(product_type='Tea')
+
+class Tea(Product):
+    objects = TeaManager()
+
+    class Meta:
+        proxy = True
