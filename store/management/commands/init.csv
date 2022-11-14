@@ -1,0 +1,86 @@
+Content:Tea,,,,,,,
+product_type,name,price,image,description,tea_type,tea_year,tea_amount
+Tea,Черный чай №1,91,black1.jpg,,Black,2018,464
+Tea,Черный чай №2,614,black2.jpg,,Black,2017,494
+Tea,Черный чай №3,163,black3.jpg,,Black,2016,659
+Tea,Черный чай №4,435,black4.jpg,,Black,2018,1954
+Tea,Черный чай №5,50,black5.jpg,,Black,2016,2179
+Tea,Черный чай №6,355,black6.jpg,,Black,2016,1216
+Tea,Черный чай №7,271,black7.jpg,,Black,2021,2494
+Tea,Черный чай №8,457,black8.jpg,,Black,2016,818
+Tea,Темный чай №1,322,dark1.jpg,,Dark,2020,401
+Tea,Темный чай №2,743,dark2.jpg,,Dark,2021,1240
+Tea,Зеленый чай №1,169,green1.jpg,,Green,2021,2778
+Tea,Зеленый чай №2,403,green2.jpg,,Green,2019,1652
+Tea,Зеленый чай №3,330,green3.jpg,,Green,2016,2794
+Tea,Зеленый чай №4,652,green4.jpg,,Green,2021,309
+Tea,Зеленый чай №5,256,green5.jpg,,Green,2017,486
+Tea,Зеленый чай №6,701,green6.jpg,,Green,2019,1251
+Tea,Зеленый чай №7,209,green7.jpg,,Green,2017,2223
+Tea,Улун №1,680,oolong1.jpg,,Oolong,2019,2843
+Tea,Улун №2,141,oolong2.jpg,,Oolong,2020,1880
+Tea,Улун №3,400,oolong3.jpg,,Oolong,2018,1382
+Tea,Улун №4,341,oolong4.jpg,,Oolong,2016,2474
+Tea,Улун №5,759,oolong5.jpg,,Oolong,2016,800
+Tea,Улун №6,321,oolong6.jpg,,Oolong,2017,2047
+Tea,Улун №7,791,oolong7.jpg,,Oolong,2016,2055
+Tea,Улун №8,97,oolong8.jpg,,Oolong,2021,2450
+Tea,Улун №9,982,oolong9.jpg,,Oolong,2018,895
+Tea,Улун №10,66,oolong10.jpg,,Oolong,2016,2053
+Tea,Улун №11,1049,oolong11.jpg,,Oolong,2019,749
+Tea,Улун №12,260,oolong12.jpg,,Oolong,2017,2682
+Tea,Пуэр №1,839,puer1.jpg,,Puer,2021,2623
+Tea,Пуэр №2,80,puer2.jpg,,Puer,2020,1504
+Tea,Пуэр №3,796,puer3.jpg,,Puer,2016,2140
+Tea,Пуэр №4,111,puer4.jpg,,Puer,2016,2877
+Tea,Пуэр №5,929,puer5.jpg,,Puer,2018,1656
+Tea,Пуэр №6,139,puer6.jpg,,Puer,2019,2282
+Tea,Белый чай №1,977,white1.jpg,,White,2021,2073
+Tea,Белый чай №2,172,white2.jpg,,White,2016,2738
+Tea,Белый чай №3,795,white3.jpg,,White,2021,1125
+Tea,Белый чай №4,81,white4.jpg,,White,2021,1802
+Tea,Белый чай №5,245,white5.jpg,,White,2020,1430
+Tea,Белый чай №6,212,white6.jpg,,White,2017,2656
+Tea,Желтый чай №1,919,yellow1.jpg,,Yellow,2016,2737
+,,,,,,,
+Content:Utensil,,,,,,,
+product_type,name,price,image,description,utensil_type,utensil_material,utensil_amount
+Utensil,Чашка №1,544,cup1.jpg,,Cup,Ceramic,9
+Utensil,Чашка №2,989,cup2.jpg,,Cup,Porcelain,7
+Utensil,Чашка №3,1922,cup3.jpg,,Cup,Porcelain,8
+Utensil,Чашка №4,4172,cup4.jpg,,Cup,Ceramic,1
+Utensil,Чашка №5,976,cup5.jpg,,Cup,Ceramic,7
+Utensil,Чашка №6,1189,cup6.jpg,,Cup,Ceramic,2
+Utensil,Чашка №7,1507,cup7.jpg,,Cup,Ceramic,2
+Utensil,Чашка №8,4091,cup8.jpg,,Cup,Ceramic,9
+Utensil,Чашка №9,815,cup9.jpg,,Cup,Ceramic,3
+Utensil,Чашка №10,542,cup10.jpg,,Cup,Porcelain,9
+Utensil,Чайник для кипячения №1,1906,kettle1.jpg,,Kettle,Metal,3
+Utensil,Чайник для кипячения №2,3808,kettle2.jpg,,Kettle,Metal,9
+Utensil,Чайник для кипячения №3,380,kettle3.jpg,,Kettle,Metal,3
+Utensil,Чайник для кипячения №4,742,kettle4.jpg,,Kettle,Metal,2
+Utensil,Чайник для кипячения №5,1604,kettle5.jpg,,Kettle,Metal,1
+Utensil,Чайник для кипячения №6,3928,kettle6.jpg,,Kettle,Metal,5
+Utensil,Чайник заварочный №1,620,teapot1.jpg,,Teapot,Clay,7
+Utensil,Чайник заварочный №2,466,teapot2.jpg,,Teapot,Clay,4
+Utensil,Чайник заварочный №3,2093,teapot3.jpg,,Teapot,Clay,2
+Utensil,Чайник заварочный №4,3067,teapot4.jpg,,Teapot,Clay,2
+Utensil,Чайник заварочный №5,1437,teapot5.jpg,,Teapot,Clay,8
+Utensil,Чайник заварочный №6,625,teapot6.jpg,,Teapot,Clay,1
+Utensil,Чайник заварочный №7,1861,teapot7.jpg,,Teapot,Clay,5
+Utensil,Чайник заварочный №8,3595,teapot8.jpg,,Teapot,Ceramic,3
+Utensil,Чайник заварочный №9,1342,teapot9.jpg,,Teapot,Porcelain,3
+Utensil,Чайник заварочный №10,1458,teapot10.jpg,,Teapot,Clay,8
+Utensil,Чайник заварочный №11,1775,teapot11.jpg,,Teapot,Ceramic,9
+Utensil,Чайник заварочный №12,4752,teapot12.jpg,,Teapot,Ceramic,8
+Utensil,Чайник заварочный №13,1446,teapot13.jpg,,Teapot,Porcelain,7
+Utensil,Гайвань №1,1315,tureen1.jpg,,Tureen,Porcelain,7
+Utensil,Гайвань №2,2209,tureen2.jpg,,Tureen,Porcelain,4
+Utensil,Гайвань №3,4599,tureen3.jpg,,Tureen,Porcelain,8
+Utensil,Гайвань №4,555,tureen4.jpg,,Tureen,Porcelain,8
+Utensil,Гайвань №5,809,tureen5.jpg,,Tureen,Ceramic,1
+Utensil,Гайвань №6,1741,tureen6.jpg,,Tureen,Porcelain,3
+Utensil,Гайвань №7,4735,tureen7.jpg,,Tureen,Porcelain,6
+Utensil,Гайвань №8,1120,tureen8.jpg,,Tureen,Porcelain,2
+Utensil,Гайвань №9,732,tureen9.jpg,,Tureen,Porcelain,4
+Utensil,Гайвань №10,1633,tureen10.jpg,,Tureen,Ceramic,5
