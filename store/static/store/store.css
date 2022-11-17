@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+    .position-absolute-md {
+        position: absolute !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .show-md {
+        display: initial !important;
+    }
+}
