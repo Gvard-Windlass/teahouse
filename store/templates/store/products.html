@@ -1,0 +1,21 @@
+{% extends 'store/home.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>{{ products_title }}</h3>
+    <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-2">
+        {% for product in products %}
+            <div class="col text-center">
+                <div class="card p-2">
+                    <img src="{{ product.image.url }}" 
+                        alt="изображение товара"
+                        class="card-image-top product-image mx-auto">
+                    <div class="card-body">
+                        <p class="card-title">{{ product.name }}</p>
+                        <span class="card-text">{{ product.price }} ₽</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

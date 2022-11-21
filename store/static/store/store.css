@@ -9,3 +9,11 @@
         display: initial !important;
     }
 }
+
+#productLinks {
+    min-width: max-content;
+}
+
+.product-image {
+    max-width: 12em;
+}
