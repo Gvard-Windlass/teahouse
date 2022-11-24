@@ -24,18 +24,8 @@ class TeaListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         tea_type = self.kwargs.get('tea_type')
-        context['products_title'] = 'Чай '
 
         if tea_type:
-            tea_title_dict = {
-                'Black': 'Красный',
-                'Dark': 'Черный',
-                'Green': 'Зеленый',
-                'Oolong': 'Улун',
-                'Puer': 'Пуэр',
-                'White': 'Белый',
-                'Yellow': 'Желтый'
-            }
-            context['products_title'] += tea_title_dict.get(tea_type) or ''
+            context['products_title'] = f'{tea_type} Tea'
         
         return context
