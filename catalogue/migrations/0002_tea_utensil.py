@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('store', '0001_initial'),
+        ('catalogue', '0001_initial'),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 'indexes': [],
                 'constraints': [],
             },
-            bases=('store.product',),
+            bases=('catalogue.product',),
         ),
         migrations.CreateModel(
             name='Utensil',
@@ -30,6 +30,6 @@ class Migration(migrations.Migration):
                 'indexes': [],
                 'constraints': [],
             },
-            bases=('store.product',),
+            bases=('catalogue.product',),
         ),
     ]

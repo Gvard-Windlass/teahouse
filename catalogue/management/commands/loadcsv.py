@@ -3,9 +3,9 @@ import csv, lorem
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
 
-from store.models import Product, Tea, Utensil
+from catalogue.models import Product, Tea, Utensil
 
-# python manage.py loadcsv --csv store/management/commands/init.csv --image_folder product_images --lorem_description True
+# python manage.py loadcsv --csv catalogue/management/commands/init.csv --image_folder product_images --lorem_description True
 class Command(BaseCommand):
     help = 'Load product data from a CSV file'
 

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from store.models import *
+from catalogue.models import *
 
 class TestProductModel(TestCase):
     def test_create_product(self):

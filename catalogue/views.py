@@ -5,13 +5,13 @@ from .models import Tea
 
 
 def home(request):
-    return render(request, 'store/home.html')
+    return render(request, 'catalogue/home.html')
 
 
 class TeaListView(ListView):
     model = Tea
     context_object_name = 'products'
-    template_name = 'store/products.html'
+    template_name = 'catalogue/products.html'
 
     def get_queryset(self):
         tea_type = self.kwargs.get('tea_type')
