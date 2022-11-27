@@ -1,7 +1,7 @@
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 from .forms import CustomerRegistrationForm
 
@@ -20,3 +20,8 @@ class RegistrationView(FormView):
             return redirect('home')
         else:
             return render(request, self.template_name)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
