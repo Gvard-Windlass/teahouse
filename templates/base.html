@@ -20,6 +20,9 @@
                 <input type="search" class="form-control">
                 <button type="submit" class="btn btn-outline-dark mx-2">Поиск</button>
             </form>
+            {% if not user.is_authenticated %}
+                <a href="register/" class="text-end flex-grow-1">Войти</a>
+            {% endif %}
         </div>
     </nav>
     {% block main %}{% endblock main %}
