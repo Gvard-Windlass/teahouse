@@ -1,9 +1,5 @@
-{% extends 'base.html' %}
+{% extends 'account/auth.html' %}
 
-{% block main %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Регистрация</button>
-    </form>
-{% endblock main %}
+{% block register_option %}btn-outline-info disabled{% endblock register_option %}
+{% block login_option %}btn-info{% endblock login_option %}
+{% block button_title %}Регистрация{% endblock button_title %}

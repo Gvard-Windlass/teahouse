@@ -17,3 +17,9 @@
 .product-image {
     max-width: 12em;
 }
+
+@media (min-width:768px) {
+    .single-content {
+        max-width: 34em;
+    }
+}
