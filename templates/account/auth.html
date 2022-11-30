@@ -2,16 +2,17 @@
 {% load crispy_forms_tags %} 
 
 {% block main %}
-    <div class="container single-content text-center mt-5">
-        <div class="row">
-            <div class="col">
-                <a href="{% url 'register' %}" class="btn {% block register_option %}{% endblock register_option %}" role="button">Регистрация</a>
-            </div>
-            <div class="col">
-                <a href="{% url 'login' %}" class="btn {% block login_option %}{% endblock login_option %}" role="button">Вход</a>
-            </div>
-        </div>
+    <div class="container single-content mt-5">
+        <ul class="nav nav-tabs nav-fill">
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="nav-link {% block login_tab %}{% endblock login_tab %}">Вход</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'register' %}" class="nav-link {% block register_tab %}{% endblock register_tab %}">Регистрация</a>
+            </li>
+        </ul>
     </div>
+
     <div class="container single-content mt-5">
         <form method="post">
             {% csrf_token %}
