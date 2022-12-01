@@ -105,9 +105,6 @@ class TestProfilePage(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    def setUp(self): 
-        self.client = Client()
-
 
     def test_user_update(self):
         # create user
