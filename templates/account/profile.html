@@ -3,13 +3,27 @@
 
 {% block main %}
     <div class="container single-content mt-5">
-        <form method="post">
-            {% csrf_token %}
-            {{ user_form|crispy }}
-            {{ customer_form|crispy }}
-            <div class="text-center">
-                <button id="user-update-submit" class="btn btn-primary" type="submit">Сохранить</button>
-            </div>
-        </form>
+        <ul class="nav nav-tabs nav-fill">
+            <li class="nav-item">
+              <a href="{% url 'profile' %}" 
+              class="nav-link {% block info_tab %}active disabled{% endblock info_tab %}">
+              Информация</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'password_change' %}" 
+              class="nav-link {% block password_tab %}{% endblock password_tab %}">
+              Смена пароля</a>
+            </li>
+        </ul>
+        {% block profile_tab_content %}
+            <form method="post">
+                {% csrf_token %}
+                {{ user_form|crispy }}
+                {{ customer_form|crispy }}
+                <div class="text-center">
+                    <button id="user-update-submit" class="btn btn-primary" type="submit">Сохранить</button>
+                </div>
+            </form>
+        {% endblock profile_tab_content %}
     </div>
 {% endblock main %}

@@ -146,3 +146,49 @@ class TestProfilePage(StaticLiveServerTestCase):
 
         user = User.objects.get(username='gvard')
         self.assertEqual(user.email, 'test@example.com')
+
+
+class TestPasswordChangePage(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+
+    def test_password_chage(self):
+        # create user
+        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        # login
+        self.selenium.get(f'{self.live_server_url}/login')
+        username_input = self.selenium.find_element(By.ID, 'id_username')
+        password_input = self.selenium.find_element(By.ID, 'id_password')
+        submit_button = self.selenium.find_element(By.ID, 'auth-submit')
+
+        username_input.send_keys('gvard')
+        password_input.send_keys('Bk7^31&3LDXt')
+        submit_button.send_keys(Keys.RETURN)
+
+        current_url = self.selenium.current_url
+        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+
+        # test password change
+        self.selenium.get(f'{self.live_server_url}/profile/password')
+        old_password_input = self.selenium.find_element(By.ID, 'id_old_password')
+        new_password1_input = self.selenium.find_element(By.ID, 'id_new_password1')
+        new_password2_input = self.selenium.find_element(By.ID, 'id_new_password2')
+        submit_button = self.selenium.find_element(By.ID, 'password-change-submit')
+
+        old_password_input.send_keys('Bk7^31&3LDXt')
+        new_password1_input.send_keys('aA9590Ak$^yo')
+        new_password2_input.send_keys('aA9590Ak$^yo')
+        submit_button.send_keys(Keys.RETURN)
+
+        current_url = self.selenium.current_url
+        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+        self.selenium.save_screenshot('C:\Dev\django_dev_1\selenium_screenshots\\new.png')
