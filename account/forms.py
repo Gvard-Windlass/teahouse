@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from .models import Customer
+
 
 class CustomerRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -19,3 +21,15 @@ class CustomerRegistrationForm(UserCreationForm):
         user.customer.birthday = self.cleaned_data['birthday']
         user.save()
         return user
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email')
+
+
+class CustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ('birthday', 'avatar')

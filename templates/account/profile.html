@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+
+{% block main %}
+    <div class="container single-content mt-5">
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form|crispy }}
+            {{ customer_form|crispy }}
+            <div class="text-center">
+                <button id="user-update-submit" class="btn btn-primary" type="submit">Сохранить</button>
+            </div>
+        </form>
+    </div>
+{% endblock main %}

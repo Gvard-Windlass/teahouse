@@ -93,3 +93,59 @@ class TestLoginPage(StaticLiveServerTestCase):
         self.assertEqual(self.selenium.current_url, f'{self.live_server_url}/')
 
 
+class TestProfilePage(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+    def setUp(self): 
+        self.client = Client()
+
+
+    def test_user_update(self):
+        # create user
+        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        user.customer.birthday = '2000-01-01'
+        user.save()
+        
+        # login
+        self.selenium.get(f'{self.live_server_url}/login')
+        username_input = self.selenium.find_element(By.ID, 'id_username')
+        password_input = self.selenium.find_element(By.ID, 'id_password')
+        submit_button = self.selenium.find_element(By.ID, 'auth-submit')
+
+        username_input.send_keys('gvard')
+        password_input.send_keys('Bk7^31&3LDXt')
+        submit_button.send_keys(Keys.RETURN)
+
+        current_url = self.selenium.current_url
+        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+
+        # test profile
+        self.selenium.get(f'{self.live_server_url}/profile')
+        
+        username_input = self.selenium.find_element(By.ID, 'id_username')
+        self.assertEqual(username_input.get_attribute('value'), 'gvard')
+
+        first_name_input = self.selenium.find_element(By.ID, 'id_first_name')
+        last_name_input = self.selenium.find_element(By.ID, 'id_last_name')
+        email_input = self.selenium.find_element(By.ID, 'id_email')
+        submit_button = self.selenium.find_element(By.ID, 'user-update-submit')
+
+        first_name_input.send_keys('Gvard')
+        last_name_input.send_keys('Windlass')
+        email_input.send_keys('test@example.com')
+        submit_button.send_keys(Keys.RETURN)
+
+        current_url = self.selenium.current_url
+        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+
+        user = User.objects.get(username='gvard')
+        self.assertEqual(user.email, 'test@example.com')
