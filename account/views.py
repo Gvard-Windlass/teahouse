@@ -24,11 +24,6 @@ class RegistrationView(FormView):
             return render(request, self.template_name)
 
 
-def logout_view(request):
-    logout(request)
-    return redirect('home')
-
-
 class ProfileView(LoginRequiredMixin, View):
     login_url = '/login'
 

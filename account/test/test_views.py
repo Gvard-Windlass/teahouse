@@ -29,7 +29,6 @@ class TestLogoutView(TestCase):
 
     
     def test_logout_view(self):
-        # TODO: login first, should have a guard
         response = self.client.get('/logout/')
         self.assertEqual(response.status_code, 302)
 
