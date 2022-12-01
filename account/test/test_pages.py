@@ -5,6 +5,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
+# NOTE: flashes page 404 in the beginning of tests, expected behavior
+from seleniumlogin import force_login
+
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User, AnonymousUser
 from django.test import Client
@@ -107,23 +110,10 @@ class TestProfilePage(StaticLiveServerTestCase):
 
 
     def test_user_update(self):
-        # create user
         user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
         user.customer.birthday = '2000-01-01'
         user.save()
-        
-        # login
-        self.selenium.get(f'{self.live_server_url}/login')
-        username_input = self.selenium.find_element(By.ID, 'id_username')
-        password_input = self.selenium.find_element(By.ID, 'id_password')
-        submit_button = self.selenium.find_element(By.ID, 'auth-submit')
-
-        username_input.send_keys('gvard')
-        password_input.send_keys('Bk7^31&3LDXt')
-        submit_button.send_keys(Keys.RETURN)
-
-        current_url = self.selenium.current_url
-        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+        force_login(user, self.selenium, self.live_server_url)
 
         # test profile
         self.selenium.get(f'{self.live_server_url}/profile')
@@ -162,20 +152,8 @@ class TestPasswordChangePage(StaticLiveServerTestCase):
 
 
     def test_password_chage(self):
-        # create user
         user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
-        # login
-        self.selenium.get(f'{self.live_server_url}/login')
-        username_input = self.selenium.find_element(By.ID, 'id_username')
-        password_input = self.selenium.find_element(By.ID, 'id_password')
-        submit_button = self.selenium.find_element(By.ID, 'auth-submit')
-
-        username_input.send_keys('gvard')
-        password_input.send_keys('Bk7^31&3LDXt')
-        submit_button.send_keys(Keys.RETURN)
-
-        current_url = self.selenium.current_url
-        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+        force_login(user, self.selenium, self.live_server_url)
 
         # test password change
         self.selenium.get(f'{self.live_server_url}/profile/password')
