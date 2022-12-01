@@ -7,7 +7,7 @@ from django.dispatch import receiver
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birthday = models.DateField(null=True)
-    avatar = models.ImageField(upload_to='user_images/', null=True)
+    avatar = models.ImageField(upload_to='user_images/', null=True, blank=True)
 
 
 @receiver(post_save, sender=User)
