@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Product(models.Model):
@@ -14,6 +15,7 @@ class Product(models.Model):
     price = models.FloatField()
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
     description = models.TextField()
+    users_wishlist = models.ManyToManyField(User, blank=True)
 
     # tea fields
     class TeaType(models.TextChoices):
