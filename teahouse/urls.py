@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('catalogue.urls')),
     path('', include('account.urls')),
+    path('', include('wishlist.urls')),
 ]
 
 if settings.DEBUG:
