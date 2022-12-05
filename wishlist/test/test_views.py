@@ -138,6 +138,7 @@ class TestWishlistGet(TestCase):
         middleware = SessionMiddleware(request)
         middleware.process_request(request)
         request.session.save()
+        request.user = AnonymousUser()
 
         wishlist = Wishlist(request)
         wishlist.add(product)

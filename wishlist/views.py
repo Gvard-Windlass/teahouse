@@ -12,11 +12,8 @@ class WishlistAddView(View):
         product_id = int(json.loads(request.body).get('productid'))
         product = get_object_or_404(Product, pk=product_id)
 
-        if request.user.is_authenticated:
-            product.users_wishlist.add(request.user)
-        else:
-            wishlist = Wishlist(request)
-            wishlist.add(product)
+        wishlist = Wishlist(request)
+        wishlist.add(product)
 
         return JsonResponse({})
 
@@ -26,11 +23,8 @@ class WishlistRemoveView(View):
         product_id = int(json.loads(request.body).get('productid'))
         product = get_object_or_404(Product, pk=product_id)
 
-        if request.user.is_authenticated:
-            product.users_wishlist.remove(request.user)
-        else:
-            wishlist = Wishlist(request)
-            wishlist.remove(product)
+        wishlist = Wishlist(request)
+        wishlist.remove(product)
         
         return JsonResponse({})
 

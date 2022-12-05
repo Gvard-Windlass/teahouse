@@ -11,20 +11,27 @@ class Wishlist:
         if not wishlist:
             wishlist = self.session[settings.WISHLIST_SESSION_ID] = {}
         self.wishlist = wishlist
+        self.user = request.user
 
     
     def add(self, product):
-        product_id = str(product.id)
-        if product_id not in self.wishlist:
-            self.wishlist[product_id] = {'price': str(product.price)}
-        self.save()
+        if self.user.is_authenticated:
+            product.users_wishlist.add(self.user)
+        else:
+            product_id = str(product.id)
+            if product_id not in self.wishlist:
+                self.wishlist[product_id] = {'price': str(product.price)}
+            self.save()
 
 
     def remove(self, product):
-        product_id = str(product.id)
-        if product_id in self.wishlist:
-            self.wishlist.pop(product_id)
-        self.save()
+        if self.user.is_authenticated:
+            product.users_wishlist.remove(self.user)
+        else:
+            product_id = str(product.id)
+            if product_id in self.wishlist:
+                self.wishlist.pop(product_id)
+            self.save()
 
     
     def save(self):
