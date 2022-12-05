@@ -64,6 +64,7 @@ class TestWishlistAddView(TestCase):
 class TestWishlistRemoveView(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
+        self.client = Client()
 
 
     def test_wishlist_remove_session(self):
@@ -124,9 +125,10 @@ class TestWishlistRemoveView(TestCase):
 class TestWishlistGet(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
+        self.client = Client()
 
     
-    def test_wishlist_get_view(self):
+    def test_wishlist_get_session(self):
         product = Product.objects.create(
             name='test product', 
             price = 10.5,
@@ -145,6 +147,31 @@ class TestWishlistGet(TestCase):
         self.assertIn(1, wishlist.get_ids())
 
         response = WishlistGetView().get(request)
+        response_data = json.loads(response.content)['wishlist']
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(1, response_data)
+
+
+    def test_wishlist_get_authenticated(self):
+        user = User.objects.create_user(
+            username = 'gvard',
+            password = 'Bk7^31&3LDXt',
+        )
+        product = Product.objects.create(
+            name='test product', 
+            price = 10.5,
+            description = 'product for testing',
+            product_type = 'Misc'
+        )
+        product.users_wishlist.add(user)
+        user.save()
+        product.save()
+
+        self.assertTrue(user.product_set.first().id, 1)
+        self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
+
+        response = self.client.get('/wishlist_get/')
         response_data = json.loads(response.content)['wishlist']
         
         self.assertEqual(response.status_code, 200)

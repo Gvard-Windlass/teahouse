@@ -40,4 +40,7 @@ class Wishlist:
 
 
     def get_ids(self):
-        return [int(x) for x in self.wishlist.keys()]
+        if self.user.is_authenticated:
+            return list(self.user.product_set.all().values_list('id', flat=True))
+        else:
+            return [int(x) for x in self.wishlist.keys()]
