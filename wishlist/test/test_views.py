@@ -122,7 +122,7 @@ class TestWishlistRemoveView(TestCase):
         self.assertEqual(0, len(User.objects.get(id=1).product_set.all()))
 
 
-class TestWishlistGet(TestCase):
+class TestWishlistGetView(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.client = Client()
@@ -176,3 +176,24 @@ class TestWishlistGet(TestCase):
         
         self.assertEqual(response.status_code, 200)
         self.assertIn(1, response_data)
+
+
+class TestWishlistDisplayView(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    
+    def test_wishlist_display_anonymous(self):
+        response = self.client.get('/wishlist_display/')
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_wishlist_display_authenticated(self):
+        user = User.objects.create_user(
+            username = 'gvard',
+            password = 'Bk7^31&3LDXt',
+        )
+        self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
+
+        response = self.client.get('/wishlist_display/')
+        self.assertEqual(response.status_code, 200)

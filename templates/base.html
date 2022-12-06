@@ -21,7 +21,10 @@
                 <button type="submit" class="btn btn-outline-dark mx-2">Поиск</button>
             </form>
             {% if not user.is_authenticated %}
-                <a href="{% url 'login' %}" class="text-end flex-grow-1">Войти</a>
+                <div class="flex-grow-1 d-flex justify-content-end">
+                    <a href="{% url 'wishlist_display' %}" class="btn btn-outline-primary me-3">♥</a>
+                    <a class="my-1" href="{% url 'login' %}">Войти</a>
+                </div>
             {% else %}
                 <div class="flex-grow-1 d-flex justify-content-end">
                     <span class="me-3 my-auto d-none d-md-block">{{ user.first_name }}</span>
@@ -37,7 +40,7 @@
                             {% endif %}>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a href="" class="dropdown-item">Избранное</a></li>
+                            <li><a href="{% url 'wishlist_display' %}" class="dropdown-item">Избранное</a></li>
                             <li><a href="" class="dropdown-item">Корзина</a></li>
                             <li><a href="{% url 'profile' %}" class="dropdown-item">Профиль</a></li>
                             <li><hr class="dropdown-divider"></li>

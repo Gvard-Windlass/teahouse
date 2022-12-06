@@ -44,3 +44,10 @@ class Wishlist:
             return list(self.user.product_set.all().values_list('id', flat=True))
         else:
             return [int(x) for x in self.wishlist.keys()]
+
+
+    def get_products(self):
+        product_ids = self.get_ids()
+        products = Product.objects.filter(id__in=product_ids)
+
+        return products
