@@ -1,5 +1,6 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
@@ -44,7 +45,7 @@ class TestHomePage(StaticLiveServerTestCase):
         self.assertTrue(sidebar.is_displayed())
 
 
-class TestProductDisplay(StaticLiveServerTestCase):
+class TestProductsDisplay(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -80,6 +81,42 @@ class TestProductDisplay(StaticLiveServerTestCase):
             tea_amount = 50.5
         )
 
-        self.selenium.get(f'{self.live_server_url}/tea/')
+        self.selenium.get(f'{self.live_server_url}/tea_catalogue/')
         tea_products = self.selenium.find_elements(By.CLASS_NAME, 'card')
         self.assertEqual(len(tea_products), 2)
+
+
+class TestProductDetailPage(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+
+    def test_tea_detail_page(self):
+        Tea.objects.create(
+            name='test tea 1',
+            price = 300.5,
+            image = 'product_images/black1.jpg',
+            description = 'tea for testing',
+            product_type = 'Tea',
+            tea_type = 'Black',
+            tea_year = 2022,
+            tea_amount = 300.5
+        )
+
+        self.selenium.get(f'{self.live_server_url}/tea/1/')
+        amount_imput = self.selenium.find_element(By.CSS_SELECTOR, 'input[name=amount]')
+        total_display = self.selenium.find_element(By.ID, 'total')
+        initial_total = total_display.text
+
+        move = ActionChains(self.selenium)
+        
+        move.click_and_hold(amount_imput).move_by_offset(10, 0).release().perform()
+        self.assertNotEqual(initial_total, total_display.text)

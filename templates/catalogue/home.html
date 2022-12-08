@@ -31,13 +31,13 @@
             <div class="accordeon-collapse collapse show" id="teaLinks-menu" area-labelledby="teaLinks-header">
                 <div class="accordeon-body">
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a href="/tea/Black/" class="nav-link">Красный</a></li>
-                        <li class="nav-item"><a href="/tea/Dark/" class="nav-link">Чёрный</a></li>
-                        <li class="nav-item"><a href="/tea/Green/" class="nav-link">Зелёный</a></li>
-                        <li class="nav-item"><a href="/tea/Oolong/" class="nav-link">Улун</a></li>
-                        <li class="nav-item"><a href="/tea/Puer/" class="nav-link">Пуэр</a></li>
-                        <li class="nav-item"><a href="/tea/White/" class="nav-link">Белый</a></li>
-                        <li class="nav-item"><a href="/tea/Yellow/" class="nav-link">Жёлтый</a></li>
+                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Black' %}" class="nav-link">Красный</a></li>
+                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Dark' %}" class="nav-link">Чёрный</a></li>
+                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Green' %}" class="nav-link">Зелёный</a></li>
+                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Oolong' %}" class="nav-link">Улун</a></li>
+                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Puer' %}" class="nav-link">Пуэр</a></li>
+                        <li class="nav-item"><a href="{% url 'tea_by_type' 'White' %}" class="nav-link">Белый</a></li>
+                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Yellow' %}" class="nav-link">Жёлтый</a></li>
                     </ul>
                 </div>
             </div>

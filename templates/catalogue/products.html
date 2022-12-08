@@ -12,7 +12,8 @@
                         alt="изображение товара"
                         class="card-image-top product-image mx-auto">
                     <div class="card-body">
-                        <p class="card-title">{{ product.name }}</p>
+                        <a href="{% url 'tea_detail' product.id %}" class="card-title">{{ product.name }}</a>
+                        <br>
                         <span class="card-text">{{ product.price }} ₽</span>
                     </div>
                     <button 
@@ -32,16 +33,19 @@
             
             const products = document.querySelector('#products');
             products.addEventListener('click', function(event) {
-                event.preventDefault();
-                productId = event.target.value;
-                if (wishlist.includes(productId)) {
-                    updateWishlist('{% url "wishlist_remove" %}', '{{ csrf_token }}', productId);
-                    event.target.innerText = '♡';
-                    wishlist = wishlist.filter(item => item !== productId);
-                } else {
-                    updateWishlist('{% url "wishlist_add" %}', '{{ csrf_token }}', productId);
-                    event.target.innerText = '♥';
-                    wishlist.push(productId);
+                if (event.target.tagName == 'BUTTON' && 
+                event.target.classList.contains('btnWishlist')) {
+                    event.preventDefault();
+                    productId = event.target.value;
+                    if (wishlist.includes(productId)) {
+                        updateWishlist('{% url "wishlist_remove" %}', '{{ csrf_token }}', productId);
+                        event.target.innerText = '♡';
+                        wishlist = wishlist.filter(item => item !== productId);
+                    } else {
+                        updateWishlist('{% url "wishlist_add" %}', '{{ csrf_token }}', productId);
+                        event.target.innerText = '♥';
+                        wishlist.push(productId);
+                    }
                 }
             });
         });
