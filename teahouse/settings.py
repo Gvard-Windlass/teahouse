@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'catalogue',
     'account',
-    'wishlist'
+    'wishlist',
+    'cart'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
@@ -142,5 +143,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CART_SESSION_ID = 'cart'
 WISHLIST_SESSION_ID = 'wishlist'

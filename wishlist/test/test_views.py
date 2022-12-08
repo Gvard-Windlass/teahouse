@@ -56,7 +56,7 @@ class TestWishlistAddView(TestCase):
             content_type='application/json'
         )
 
-        product_id = User.objects.get(id=1).product_set.first().id
+        product_id = User.objects.get(id=1).wishlist.first().id
         self.assertEqual(response.status_code, 200)
         self.assertEqual(1, product_id)
 
@@ -109,7 +109,7 @@ class TestWishlistRemoveView(TestCase):
         user.save()
         product.save()
 
-        self.assertTrue(user.product_set.first().id, 1)
+        self.assertTrue(user.wishlist.first().id, 1)
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
 
         response = self.client.post(
@@ -119,7 +119,7 @@ class TestWishlistRemoveView(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(0, len(User.objects.get(id=1).product_set.all()))
+        self.assertEqual(0, len(User.objects.get(id=1).wishlist.all()))
 
 
 class TestWishlistGetView(TestCase):
@@ -168,7 +168,7 @@ class TestWishlistGetView(TestCase):
         user.save()
         product.save()
 
-        self.assertTrue(user.product_set.first().id, 1)
+        self.assertTrue(user.wishlist.first().id, 1)
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
 
         response = self.client.get('/wishlist_get/')

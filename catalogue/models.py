@@ -15,7 +15,8 @@ class Product(models.Model):
     price = models.FloatField()
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
     description = models.TextField()
-    users_wishlist = models.ManyToManyField(User, blank=True)
+    users_wishlist = models.ManyToManyField(User, blank=True, related_name='wishlist')
+    users_cart = models.ManyToManyField(User, blank=True, through='cart.Cart')
 
     # tea fields
     class TeaType(models.TextChoices):
