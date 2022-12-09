@@ -61,8 +61,8 @@ class TestCartPage(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-
-    def test_cart_page(self):
+    
+    def setUp(self) -> None:
         tea = Tea.objects.create(
             name='test tea 1',
             price = 300.5,
@@ -73,12 +73,25 @@ class TestCartPage(StaticLiveServerTestCase):
             tea_year = 2022,
             tea_amount = 300.5
         )
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
-        Cart.objects.create(product=tea, user=user, amount=10)
+        self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        Cart.objects.create(product=tea, user=self.user, amount=10)
 
-        force_login(user, self.selenium, self.live_server_url)
 
+    def test_cart_page(self):
+        force_login(self.user, self.selenium, self.live_server_url)
         self.selenium.get(f'{self.live_server_url}/cart/')
         
         rows = self.selenium.find_elements(By.TAG_NAME, 'tr')
         self.assertEqual(len(rows), 2)
+
+    
+    def test_cart_remove_page(self):
+        force_login(self.user, self.selenium, self.live_server_url)
+        self.selenium.get(f'{self.live_server_url}/cart/')
+
+        remove_button = self.selenium.find_element(By.CSS_SELECTOR, 'td button:last-of-type')
+        remove_button.click()
+        rows = self.selenium.find_elements(By.TAG_NAME, 'tr')
+        self.assertEqual(len(rows), 1)
+        
+        self.assertEqual(len(Cart.objects.all()), 0)

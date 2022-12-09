@@ -46,3 +46,9 @@ class TestCartManager(TestCase):
         Cart.objects.add_to_cart(1, self.user, 200, True)
         cart_item = Cart.objects.first()
         self.assertEqual(cart_item.amount, 300)
+
+    
+    def test_remove_from_cart(self):
+        Cart.objects.remove_from_cart(1, self.user)
+        cart = Cart.objects.all()
+        self.assertEqual(len(cart), 0)

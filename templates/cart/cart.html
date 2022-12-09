@@ -23,7 +23,13 @@
                     <td>{{ cart_item.product.name }}</td>
                     <td>{{ cart_item.amount }}</td>
                     <td>{{ cart_item.product.price }} ₽</td>
-                    <td class="text-end"><button class="btn">❌</button></td>
+                    <td class="text-end">
+                        <form action="{% url 'cart_remove' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="teaId" value="{{ cart_item.product.id }}">
+                            <button class="btn">❌</button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

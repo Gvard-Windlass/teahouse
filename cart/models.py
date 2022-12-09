@@ -20,6 +20,13 @@ class CartManager(models.Manager):
             Cart.objects.create(product=product, user=user, amount=amount)
 
 
+    def remove_from_cart(self, product_id: int, user: User):
+        product = Product.objects.get(pk=product_id)
+        cart_item = self.get_cart_item(user, product)
+        if cart_item:
+            cart_item.delete()
+
+
     def get_user_cart_content(self, user: User):
         return user.cart_set.all()
 

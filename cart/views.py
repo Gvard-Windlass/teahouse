@@ -20,6 +20,17 @@ class AddToCartView(LoginRequiredMixin, View):
         return redirect(nextPage)
 
 
+class RemoveFromCartView(LoginRequiredMixin, View):
+    login_url = '/login'
+
+    def post(self, request: HttpRequest, *args, **kwargs):
+        tea_id = int(request.POST.get('teaId'))
+
+        Cart.objects.remove_from_cart(tea_id, request.user)
+
+        return redirect('cart')
+
+
 class CartView(LoginRequiredMixin, ListView):
     model = Cart
     context_object_name = 'cart_items'
