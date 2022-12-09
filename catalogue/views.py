@@ -3,7 +3,7 @@ from django.views.generic.detail import DetailView
 from django.shortcuts import render
 
 from .models import Tea
-
+from cart.models import Cart
 
 def home(request):
     return render(request, 'catalogue/home.html')
@@ -39,5 +39,18 @@ class TeaDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['amount_step'] = 10
+        amount_step = 10
+        
+        context['amount_step'] = amount_step
+        cart_amount = Cart.objects.get_cart_amount(self.request.user, context['object'].id)
+        
+        if cart_amount:
+            context['added_to_cart'] = True
+            if cart_amount <= context['object'].tea_amount:
+                context['initial_value'] = cart_amount
+            else:
+                context['initial_value'] = context['object'].tea_amount
+        else:
+            context['initial_value'] = amount_step
+        
         return context

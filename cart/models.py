@@ -41,6 +41,14 @@ class CartManager(models.Manager):
             return cart_item[0]
 
 
+    def get_cart_amount(self, user: User, product_id: int):
+        try:
+            cart_item = user.cart_set.get(product__id=product_id)
+            return cart_item.amount
+        except:
+            return
+
+
 class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
