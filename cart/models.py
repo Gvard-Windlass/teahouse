@@ -25,7 +25,7 @@ class CartManager(models.Manager):
 
 
     def get_user_cart_ids(self, user: User):
-        return user.cart_set.all().values_list('id', flat=True)
+        return user.cart_set.all().values_list('product', flat=True)
 
 
     def get_cart_item(self, user: User, product: Product):
