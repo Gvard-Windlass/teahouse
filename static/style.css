@@ -18,8 +18,24 @@
     max-width: 12em;
 }
 
+.product-image-sm {
+    max-width: 6em;
+}
+
 @media (min-width:768px) {
     .single-content {
         max-width: 34em;
     }
+}
+
+@media (min-width:768px) {
+    .single-content-lg {
+        max-width: 50em !important;
+    }
+}
+
+.table td.fit, 
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
 }

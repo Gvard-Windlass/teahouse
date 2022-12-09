@@ -31,3 +31,16 @@ class TestCartAddView(TestCase):
         self.assertEqual(response.status_code, 302)
 
         self.assertEqual(1, User.objects.first().cart_set.first().id)
+
+
+class TestCartView(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+
+    def test_cart_view(self):
+        User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
+
+        response = self.client.get('/cart/')
+        self.assertEqual(response.status_code, 200)

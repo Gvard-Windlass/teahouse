@@ -47,3 +47,38 @@ class TestCartAddPage(StaticLiveServerTestCase):
         cart_add_button.click()
 
         self.assertEqual(1, User.objects.first().cart_set.first().id)
+
+
+class TestCartPage(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+
+    def test_cart_page(self):
+        tea = Tea.objects.create(
+            name='test tea 1',
+            price = 300.5,
+            image = 'product_images/black1.jpg',
+            description = 'tea for testing',
+            product_type = 'Tea',
+            tea_type = 'Black',
+            tea_year = 2022,
+            tea_amount = 300.5
+        )
+        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        Cart.objects.create(product=tea, user=user, amount=10)
+
+        force_login(user, self.selenium, self.live_server_url)
+
+        self.selenium.get(f'{self.live_server_url}/cart/')
+        
+        rows = self.selenium.find_elements(By.TAG_NAME, 'tr')
+        self.assertEqual(len(rows), 2)
