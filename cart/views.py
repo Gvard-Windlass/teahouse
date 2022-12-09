@@ -14,8 +14,7 @@ class AddToCartView(LoginRequiredMixin, View):
         amount = request.POST.get('amount')
         tea_id = int(request.POST.get('teaId'))
         
-        product = Product.objects.get(pk=tea_id)
-        Cart.objects.create(product=product, user=request.user, amount=amount)
+        Cart.objects.add_to_cart(tea_id, request.user, amount)
 
         nextPage = request.POST.get('nextPage')
         return redirect(nextPage)
@@ -27,5 +26,5 @@ class CartView(LoginRequiredMixin, ListView):
     template_name = 'cart/cart.html'
 
     def get_queryset(self):
-        cart_items = self.request.user.cart_set.all()
+        cart_items = Cart.objects.get_user_cart_content(self.request.user)
         return cart_items
