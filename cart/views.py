@@ -39,3 +39,11 @@ class CartView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         cart_items = Cart.objects.get_user_cart_content(self.request.user)
         return cart_items
+
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        amount_step = 10
+        
+        context['amount_step'] = amount_step
+        return context

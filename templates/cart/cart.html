@@ -1,41 +1,48 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load amount_price %}
 
 {% block main %}
     <h3 class="text-center mt-3">Корзина</h3>
-    <div class="container single-content-lg mt-5">
-        <table class="table">
-            <thead>
-                <tr class="text-center">
-                    <th>Фото</th>
-                    <th>Наименование</th>
-                    <th>Количество</th>
-                    <th>Цена</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for cart_item in cart_items %}
-                <tr class="align-middle text-center">
-                    <td class="fit"><img src="{{ cart_item.product.image.url }}" 
-                        alt="изображение товара"
-                        class="product-image-sm"></td>
-                    <td>{{ cart_item.product.name }}</td>
-                    <td>{{ cart_item.amount }}</td>
-                    <td>{{ cart_item.product.price }} ₽</td>
-                    <td class="text-end">
-                        <form action="{% url 'cart_remove' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="teaId" value="{{ cart_item.product.id }}">
-                            <button class="btn">❌</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div class="text-center">
-            <button class="btn btn-primary mx-auto">Оформить заказ</button>
+    {% if cart_items %}
+        <div class="container single-content-lg mt-5">
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>Фото</th>
+                        <th>Наименование</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cart_item in cart_items %}
+                    <tr class="align-middle text-center">
+                        <td class="fit"><img src="{{ cart_item.product.image.url }}" 
+                            alt="изображение товара"
+                            class="product-image-sm"></td>
+                        <td>{{ cart_item.product.name }}</td>
+                        <td>{{ cart_item.amount }}</td>
+                        <td>{{ cart_item.product.price|amount_price:cart_item.amount }} ₽</td>
+                        <td class="text-end">
+                            <form action="{% url 'cart_remove' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="teaId" value="{{ cart_item.product.id }}">
+                                <button class="btn">❌</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button class="btn btn-primary mx-auto">Оформить заказ</button>
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class="text-center mt-5">
+            <em class="fs-5">Пусто</em>
+        </div>
+    {% endif %}
 {% endblock main %}
