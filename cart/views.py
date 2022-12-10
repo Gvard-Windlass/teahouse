@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
+from django.conf import settings
 
 from .models import Cart
 from catalogue.models import Product
@@ -43,7 +44,6 @@ class CartView(LoginRequiredMixin, ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        amount_step = 10
         
-        context['amount_step'] = amount_step
+        context['amount_step'] = settings.AMOUNT_STEP
         return context

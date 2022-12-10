@@ -1,6 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render
+from django.conf import settings
 
 from .models import Tea
 from cart.models import Cart
@@ -39,9 +40,8 @@ class TeaDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        amount_step = 10
         
-        context['amount_step'] = amount_step
+        context['amount_step'] = settings.AMOUNT_STEP
         cart_amount = Cart.objects.get_cart_amount(self.request.user, context['object'].id)
         
         if cart_amount:
@@ -51,6 +51,6 @@ class TeaDetailView(DetailView):
             else:
                 context['initial_value'] = context['object'].tea_amount
         else:
-            context['initial_value'] = amount_step
+            context['initial_value'] = settings.AMOUNT_STEP
         
         return context

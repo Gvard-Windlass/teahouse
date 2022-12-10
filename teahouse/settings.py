@@ -144,3 +144,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 WISHLIST_SESSION_ID = 'wishlist'
+
+AMOUNT_STEP = 10

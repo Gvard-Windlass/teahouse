@@ -1,8 +1,8 @@
-from django import template 
+from django import template
+from django.conf import settings
 
 register = template.Library()
-amount_step = 10
 
 @register.filter
 def amount_price(price, amount):
-    return amount*price/amount_step
+    return amount*price/settings.AMOUNT_STEP
