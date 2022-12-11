@@ -39,3 +39,20 @@
     white-space: nowrap;
     width: 1%;
 }
+
+.replies {
+    position: relative;
+    left: 1.5em;
+}
+
+.fs-7 {
+    font-size: 0.8em;
+}
+
+.replies {
+    width: 90%;
+}
+
+.replies .replies {
+    width: 100%;
+}

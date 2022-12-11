@@ -1,6 +1,7 @@
 {% extends 'catalogue/home.html' %}
 {% load static %}
 {% load integer_division %}
+{% load mptt_tags %}
 
 {% block content %}
     <div class="mx-2">
@@ -46,6 +47,15 @@
         <span class="fs-5">Описание</span>
         <p class="mt-2">{{ tea.description }}</p>
         <span class="fs-5">Комментарии</span>
+        <hr>
+        {% recursetree comments %}
+        {% include 'comments/comment.html' %}
+            {% if not node.is_leaf_node %}
+                <div class="replies">
+                    {{ children }}
+                </div>
+            {% endif %}
+        {% endrecursetree %}
     </div>
     <script>
         function updateTotal(input, price) {

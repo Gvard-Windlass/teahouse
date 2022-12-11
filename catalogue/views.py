@@ -5,6 +5,8 @@ from django.conf import settings
 
 from .models import Tea
 from cart.models import Cart
+from comments.models import Comment
+
 
 def home(request):
     return render(request, 'catalogue/home.html')
@@ -42,8 +44,9 @@ class TeaDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         
         context['amount_step'] = settings.AMOUNT_STEP
+        context['comments'] = Comment.objects.filter(product=context['object'].id)
+
         cart_amount = Cart.objects.get_cart_amount(self.request.user, context['object'].id)
-        
         if cart_amount:
             context['added_to_cart'] = True
             if cart_amount <= context['object'].tea_amount:
