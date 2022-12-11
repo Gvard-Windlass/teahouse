@@ -1,0 +1,11 @@
+Content:User,,,,
+username,password,,,
+alice,Fx16&0Q^$3tw,,,
+bob,Fg853G%bXIhp,,,
+,,,,
+Content:Comment,,,,
+user,product,text,timestamp,parent
+alice,Черный чай №1,,2022-12-01 14:30:00,
+bob,Черный чай №1,,2022-12-02 17:23:00,
+alice,Черный чай №1,,2022-12-03 12:45:00,2022-12-02 17:23:00
+bob,Черный чай №1,,2022-12-03 13:15:00,2022-12-03 12:45:00
