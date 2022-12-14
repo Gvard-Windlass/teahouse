@@ -12,7 +12,7 @@
         {% endif %}
         {{ node.timestamp }}
         </em>
-        {% if node.user.id != request.user.id %}
+        {% if node.user.id != request.user.id and user.is_authenticated %}
             <button class="btn btn-sm float-end btn-reply">Ответить</button>
             <form action="{% url 'comments_create' tea.id node.id %}" method="post" class="my-2 reply-form d-none">
                 {% csrf_token %}

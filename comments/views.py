@@ -2,6 +2,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
 from .models import Comment
@@ -9,7 +10,9 @@ from catalogue.models import Product
 from .forms import CommentForm
 
 
-class CommentsCreateView(View):
+class CommentsCreateView(LoginRequiredMixin, View):
+    login_url = '/login'
+
     def post(self, request, *args, **kwargs):
         comment_form = CommentForm(request.POST)
         product = Product.objects.get(pk=kwargs.get('product_id'))

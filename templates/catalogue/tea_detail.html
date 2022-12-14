@@ -49,18 +49,20 @@
         <p class="mt-2">{{ tea.description }}</p>
         <span class="fs-5">Комментарии</span>
         <br>
-        <em class="my-2">оставить комментарий</em>
-        <form action="{% url 'comments_create' tea.id %}" method="post" class="my-2">
-            {% csrf_token %}
-            <div class="row row-cols-auto align-items-center">
-                <div class="col">
-                    {{ comment_form|crispy }}
+        {% if user.is_authenticated %}
+            <em class="my-2">оставить комментарий</em>
+            <form action="{% url 'comments_create' tea.id %}" method="post" class="my-2">
+                {% csrf_token %}
+                <div class="row row-cols-auto align-items-center">
+                    <div class="col">
+                        {{ comment_form|crispy }}
+                    </div>
+                    <div class="col">
+                        <button id="add-comment" type="submit" class="btn btn-primary">➤</button>
+                    </div>
                 </div>
-                <div class="col">
-                    <button id="add-comment" type="submit" class="btn btn-primary">➤</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        {% endif %}
         <hr>
         <div id="discussion">
             {% recursetree comments %}
