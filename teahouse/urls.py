@@ -24,7 +24,8 @@ urlpatterns = [
     path('', include('account.urls')),
     path('', include('wishlist.urls')),
     path('', include('cart.urls')),
-    path('', include('comments.urls'))
+    path('', include('comments.urls')),
+    path('', include('articles.urls'))
 ]
 
 if settings.DEBUG:
