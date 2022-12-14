@@ -6,6 +6,7 @@ from django.conf import settings
 from .models import Tea
 from cart.models import Cart
 from comments.models import Comment
+from comments.forms import CommentForm
 
 
 def home(request):
@@ -44,6 +45,8 @@ class TeaDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         
         context['amount_step'] = settings.AMOUNT_STEP
+        context['comment_form'] = CommentForm()
+        context['comment_form'].fields['next_page'].initial = self.request.path
         context['comments'] = Comment.objects.filter(product=context['object'].id)
 
         cart_amount = Cart.objects.get_cart_amount(self.request.user, context['object'].id)

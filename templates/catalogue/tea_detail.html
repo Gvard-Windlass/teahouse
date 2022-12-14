@@ -2,6 +2,7 @@
 {% load static %}
 {% load integer_division %}
 {% load mptt_tags %}
+{% load crispy_forms_tags %} 
 
 {% block content %}
     <div class="mx-2">
@@ -47,6 +48,19 @@
         <span class="fs-5">Описание</span>
         <p class="mt-2">{{ tea.description }}</p>
         <span class="fs-5">Комментарии</span>
+        <br>
+        <em class="my-2">оставить комментарий</em>
+        <form action="{% url 'comments_create' tea.id %}" method="post" class="my-2">
+            {% csrf_token %}
+            <div class="row row-cols-auto align-items-center">
+                <div class="col">
+                    {{ comment_form|crispy }}
+                </div>
+                <div class="col">
+                    <button id="add-comment" type="submit" class="btn btn-primary">➤</button>
+                </div>
+            </div>
+        </form>
         <hr>
         {% recursetree comments %}
         {% include 'comments/comment.html' %}
