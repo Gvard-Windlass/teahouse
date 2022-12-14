@@ -43,7 +43,7 @@ class TestCartAddPage(StaticLiveServerTestCase):
         force_login(user, self.selenium, self.live_server_url)
 
         self.selenium.get(f'{self.live_server_url}/tea/1/')
-        cart_add_button = self.selenium.find_element(By.ID, 'cart-add-button')
+        cart_add_button = self.selenium.find_element(By.ID, 'cart-submit')
         cart_add_button.click()
 
         self.assertEqual(1, User.objects.first().cart_set.first().id)
@@ -91,7 +91,6 @@ class TestCartPage(StaticLiveServerTestCase):
 
         remove_button = self.selenium.find_element(By.CSS_SELECTOR, 'td button:last-of-type')
         remove_button.click()
-        rows = self.selenium.find_elements(By.TAG_NAME, 'tr')
-        self.assertEqual(len(rows), 1)
+        self.assertTrue('Пусто' in self.selenium.page_source)
         
         self.assertEqual(len(Cart.objects.all()), 0)

@@ -100,7 +100,7 @@ class TestProductDetailPage(StaticLiveServerTestCase):
 
 
     def test_tea_detail_page(self):
-        Tea.objects.create(
+        tea = Tea.objects.create(
             name='test tea 1',
             price = 300.5,
             image = 'product_images/black1.jpg',
@@ -111,7 +111,7 @@ class TestProductDetailPage(StaticLiveServerTestCase):
             tea_amount = 300.5
         )
 
-        self.selenium.get(f'{self.live_server_url}/tea/1/')
+        self.selenium.get(f'{self.live_server_url}/tea/{tea.id}/')
         amount_imput = self.selenium.find_element(By.CSS_SELECTOR, 'input[name=amount]')
         total_display = self.selenium.find_element(By.ID, 'total')
         initial_total = total_display.text
