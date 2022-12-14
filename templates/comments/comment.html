@@ -1,3 +1,5 @@
+{% load crispy_forms_tags %} 
+
 <div class="card my-2 w-50">
     <div class="card-body">
         <span class="fw-bold">{{ node.user.username }}</span>
@@ -10,5 +12,19 @@
         {% endif %}
         {{ node.timestamp }}
         </em>
+        {% if node.user.id != request.user.id %}
+            <button class="btn btn-sm float-end btn-reply">Ответить</button>
+            <form action="{% url 'comments_create' tea.id node.id %}" method="post" class="my-2 reply-form d-none">
+                {% csrf_token %}
+                <div class="row row-cols-auto align-items-center">
+                    <div class="col">
+                        {{ comment_form|crispy }}
+                    </div>
+                    <div class="col">
+                        <button id="add-comment" type="submit" class="btn btn-primary">➤</button>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
     </div>
 </div>

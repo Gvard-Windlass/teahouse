@@ -56,3 +56,11 @@
 .replies .replies {
     width: 100%;
 }
+
+.btn-reply {
+    visibility: hidden;
+}
+
+.card-body:hover > .btn-reply {
+    visibility: visible;
+}

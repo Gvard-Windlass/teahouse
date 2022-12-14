@@ -95,9 +95,8 @@ class TestAddComment(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-
-    def test_comment_post_success(self):
-        tea = Tea.objects.create(
+    def setUp(self) -> None:
+        self.tea = Tea.objects.create(
             name='test tea 1',
             price = 300.5,
             image = 'product_images/black1.jpg',
@@ -107,10 +106,13 @@ class TestAddComment(StaticLiveServerTestCase):
             tea_year = 2022,
             tea_amount = 300.5
         )
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
-        force_login(user, self.selenium, self.live_server_url)
+        self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
 
-        self.selenium.get(f'{self.live_server_url}/tea/{tea.id}/')
+
+    def test_comment_post_success(self):
+        force_login(self.user, self.selenium, self.live_server_url)
+
+        self.selenium.get(f'{self.live_server_url}/tea/{self.tea.id}/')
 
         comment_input = self.selenium.find_element(By.ID, 'id_text')
         submit_button = self.selenium.find_element(By.ID, 'add-comment')
@@ -122,3 +124,30 @@ class TestAddComment(StaticLiveServerTestCase):
         comment = self.selenium.find_element(By.CLASS_NAME, 'card-text')
 
         self.assertEqual(comment.text, 'test comment')
+
+
+    def test_add_reply(self):
+        bob = User.objects.create_user(username='bob')
+        Comment.objects.create(
+            user = bob,
+            product = self.tea,
+            text = 'comment by bob'
+        )
+        force_login(self.user, self.selenium, self.live_server_url)
+        self.selenium.get(f'{self.live_server_url}/tea/{self.tea.id}/')
+
+        comment_card = self.selenium.find_element(By.CLASS_NAME, 'card')
+        action = ActionChains(self.selenium)
+        action.move_to_element(comment_card).perform()
+        WebDriverWait(self.selenium, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'btn-reply')))
+
+        reply_button = self.selenium.find_element(By.CLASS_NAME, 'btn-reply')
+        reply_button.click()
+        
+        reply_input = self.selenium.find_element(By.CSS_SELECTOR, '.reply-form #id_text')
+        add_reply_button = self.selenium.find_element(By.CSS_SELECTOR, '.reply-form #add-comment')
+        
+        reply_input.send_keys('test reply')
+        add_reply_button.click()
+
+        self.assertEqual(len(self.selenium.find_elements(By.CLASS_NAME, 'card')), 2)

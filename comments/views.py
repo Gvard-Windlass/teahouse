@@ -14,11 +14,14 @@ class CommentsCreateView(View):
         comment_form = CommentForm(request.POST)
         product = Product.objects.get(pk=kwargs.get('product_id'))
         next_page = request.POST.get('next_page')
+        reply_target = kwargs.get('comment_id')
         
         if comment_form.is_valid():
             comment: Comment = comment_form.save(commit=False)
             comment.product = product
             comment.user = request.user
+            if reply_target:
+                comment.parent = Comment.objects.get(pk=reply_target)
             comment.save()
 
             messages.success(request, 'Комментарий добавлен')
