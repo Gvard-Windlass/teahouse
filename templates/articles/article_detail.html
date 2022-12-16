@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load markdown_html %}
+
+{% block main %}
+<div class="container mt-3 article">
+    <span class="fs-3">{{ article.title }}</span>
+    <div class="d-flex justify-content-start my-3">
+        <em>опубликовано: {{ article.publication_date }}</em>
+        <span class="ms-3">👤 {{ article.author }}</span>
+    </div>
+    <div>{{ article.body | markdown | safe }}</div>
+</div>
+<script>
+    document.querySelectorAll('img').forEach(el => {
+        el.insertAdjacentHTML('afterEnd', '<br>')
+    })
+</script>
+{% endblock main %}

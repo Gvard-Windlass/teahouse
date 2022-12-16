@@ -14,6 +14,16 @@
     min-width: max-content;
 }
 
+.article-thumbnail {
+    max-width: 12em;
+    max-height: 12em;
+}
+
+.article image {
+    max-width: 24em;
+    max-height: 24em;
+}
+
 .product-image {
     max-width: 12em;
 }
@@ -25,6 +35,9 @@
 @media (min-width:768px) {
     .single-content {
         max-width: 34em;
+    }
+    .article {
+        max-width: 60%;
     }
 }
 
