@@ -13,13 +13,13 @@
         <div class="accordeon-collapse collapse show" id="teaLinks-menu" area-labelledby="teaLinks-header">
             <div class="accordeon-body">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a href="{% url 'tea_by_type' 'Black' %}" class="nav-link">Красный</a></li>
-                    <li class="nav-item"><a href="{% url 'tea_by_type' 'Dark' %}" class="nav-link">Чёрный</a></li>
-                    <li class="nav-item"><a href="{% url 'tea_by_type' 'Green' %}" class="nav-link">Зелёный</a></li>
-                    <li class="nav-item"><a href="{% url 'tea_by_type' 'Oolong' %}" class="nav-link">Улун</a></li>
-                    <li class="nav-item"><a href="{% url 'tea_by_type' 'Puer' %}" class="nav-link">Пуэр</a></li>
-                    <li class="nav-item"><a href="{% url 'tea_by_type' 'White' %}" class="nav-link">Белый</a></li>
-                    <li class="nav-item"><a href="{% url 'tea_by_type' 'Yellow' %}" class="nav-link">Жёлтый</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Tea' 'Black' %}" class="nav-link">Красный</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Tea' 'Dark' %}" class="nav-link">Чёрный</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Tea' 'Green' %}" class="nav-link">Зелёный</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Tea' 'Oolong' %}" class="nav-link">Улун</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Tea' 'Puer' %}" class="nav-link">Пуэр</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Tea' 'White' %}" class="nav-link">Белый</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Tea' 'Yellow' %}" class="nav-link">Жёлтый</a></li>
                 </ul>
             </div>
         </div>
@@ -39,10 +39,10 @@
         <div class="accordeon-collapse collapse show" id="utensilLinks-menu" area-labelledby="utensilLinks-header">
             <div class="accordeon-body">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a href="" class="nav-link">Чаши и пиалы</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">Чайники для кипячения</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">Заварочные чайники</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">Гайвани</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Utensil' 'Cup' %}" class="nav-link">Чаши и пиалы</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Utensil' 'Kettle' %}" class="nav-link">Чайники для кипячения</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Utensil' 'Teapot' %}" class="nav-link">Заварочные чайники</a></li>
+                    <li class="nav-item"><a href="{% url 'product_by_type' 'Utensil' 'Tureen' %}" class="nav-link">Гайвани</a></li>
                 </ul>
             </div>
         </div>

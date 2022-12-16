@@ -8,12 +8,12 @@ class TestTeaListView(TestCase):
 
     
     def test_tea_list_view_specific(self):
-        response = self.client.get('/tea_catalogue/Black/')
+        response = self.client.get('/product_catalogue/Black/')
         self.assertEqual(response.status_code, 200)
 
 
     def test_tea_list_view_all(self):
-        response = self.client.get('/tea_catalogue/')
+        response = self.client.get('/product_catalogue/')
         self.assertEqual(response.status_code, 200)
 
 

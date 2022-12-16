@@ -81,7 +81,7 @@ class TestProductsDisplay(StaticLiveServerTestCase):
             tea_amount = 50.5
         )
 
-        self.selenium.get(f'{self.live_server_url}/tea_catalogue/')
+        self.selenium.get(f'{self.live_server_url}/product_catalogue/')
         tea_products = self.selenium.find_elements(By.CLASS_NAME, 'card')
         self.assertEqual(len(tea_products), 2)
 

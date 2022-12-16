@@ -37,7 +37,7 @@ class TestWishlistToggle(StaticLiveServerTestCase):
             tea_amount = 300.5
         )
 
-        self.selenium.get(f'{self.live_server_url}/tea_catalogue/')
+        self.selenium.get(f'{self.live_server_url}/product_catalogue/')
         wishlist_button = self.selenium.find_element(By.CLASS_NAME, 'btnWishlist')
         self.assertEqual(wishlist_button.text, '♡')
         wishlist_button.click()
@@ -69,7 +69,7 @@ class TestWishlistPage(StaticLiveServerTestCase):
             tea_amount = 300.5
         )
 
-        self.selenium.get(f'{self.live_server_url}/tea_catalogue/')
+        self.selenium.get(f'{self.live_server_url}/product_catalogue/')
         wishlist_button = self.selenium.find_element(By.CLASS_NAME, 'btnWishlist')
         self.assertEqual(wishlist_button.text, '♡')
         wishlist_button.click()
@@ -94,7 +94,7 @@ class TestWishlistPage(StaticLiveServerTestCase):
         user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
         force_login(user, self.selenium, self.live_server_url)
         
-        self.selenium.get(f'{self.live_server_url}/tea_catalogue/')
+        self.selenium.get(f'{self.live_server_url}/product_catalogue/')
         wishlist_button = self.selenium.find_element(By.CLASS_NAME, 'btnWishlist')
         self.assertEqual(wishlist_button.text, '♡')
         wishlist_button.click()

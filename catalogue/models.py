@@ -2,6 +2,32 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class ProductManager(models.Manager):
+    # TODO - need better names
+    def filter_products(self, product_section, product_type):
+        if product_section:
+            if product_type:
+                product_filters = {
+                    'product_type': product_section,
+                    f'{product_section.lower()}_type': product_type
+                }
+                return Product.objects.filter(**product_filters)
+            return Product.objects.filter(product_type=product_section)
+        return Product.objects.all()
+
+    
+    def get_product_title(self, product_section, product_type):
+        if product_section:
+            if product_type:
+                if product_section == 'Tea':
+                    return f'{product_type} {product_section}'
+                
+                return f'{product_type}s'
+            
+            return f'All {product_section}s'
+        return 'All Products'
+
+
 class Product(models.Model):
     class ProductType(models.TextChoices):
         Tea = 'Tea', 'Tea'
@@ -17,6 +43,7 @@ class Product(models.Model):
     description = models.TextField()
     users_wishlist = models.ManyToManyField(User, blank=True, related_name='wishlist')
     users_cart = models.ManyToManyField(User, blank=True, through='cart.Cart')
+    objects = ProductManager()
 
     # tea fields
     class TeaType(models.TextChoices):
