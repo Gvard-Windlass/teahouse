@@ -1,8 +1,5 @@
 {% extends 'catalogue/home.html' %}
 {% load static %}
-{% load integer_division %}
-{% load mptt_tags %}
-{% load crispy_forms_tags %} 
 
 {% block content %}
     <div class="mx-2">
@@ -11,87 +8,14 @@
             <div class="col col-auto">
                 <img class="product-image d-block my-3" src="{{ tea.image.url }}" alt="изображение товара">
             </div>
-            <div class="col col-auto">
-                <div class="mt-2">
-                    <span class="fs-5">Количество</span>
-                    <form action="{% url 'cart_add' %}" method="post">
-                        {% csrf_token %}
-                        <div class="d-flex my-2">
-                            <span class="flex-shrink-0">{{ amount_step }} г.</span>
-                            <input type="hidden" name="teaId" value="{{ tea.id }}">
-                            <input type="hidden" name="nextPage" value="{{ request.path }}">
-                            <input type="range"
-                            id="amount"
-                            name="amount"
-                            class="form-range mx-2" 
-                            min="{{ amount_step }}" value="{{ initial_value }}" 
-                            max="{{ tea.tea_amount|int_divide:amount_step }}" step="{{ amount_step }}"
-                            oninput="updateTotal(this, {{ tea.price }})">
-                            <span class="flex-shrink-0">{{ tea.tea_amount|int_divide:amount_step }} г.</span>
-                        </div>
-                        <span id="total" class="fs-5">{{ amount_step }} г. за {{ tea.price }} ₽</span>
-                        {% if added_to_cart %}
-                        <em class="ms-2 fs-6">Товар в корзине</em>
-                        {% endif %}
-                        <br class="mb-3">
-                        <button id="cart-submit" type="submit" class="btn btn-primary mb-3">
-                            {% if added_to_cart %}
-                                Обновить
-                            {% else %}
-                                В корзину
-                            {% endif %}
-                        </button>
-                    </form>
-                </div>
-            </div>
+            {% include 'cart/cart_add_tea.html' %}
         </div>
         <span class="fs-5">Описание</span>
         <p class="mt-2">{{ tea.description }}</p>
         <span class="fs-5">Комментарии</span>
         <br>
-        {% if user.is_authenticated %}
-            <em class="my-2">оставить комментарий</em>
-            <form action="{% url 'comments_create' tea.id %}" method="post" class="my-2">
-                {% csrf_token %}
-                <div class="row row-cols-auto align-items-center">
-                    <div class="col">
-                        {{ comment_form|crispy }}
-                    </div>
-                    <div class="col">
-                        <button id="add-comment" type="submit" class="btn btn-primary">➤</button>
-                    </div>
-                </div>
-            </form>
-        {% endif %}
+        {% include 'comments/add_comment.html' %}
         <hr>
-        <div id="discussion">
-            {% recursetree comments %}
-            {% include 'comments/comment.html' %}
-                {% if not node.is_leaf_node %}
-                    <div class="replies">
-                        {{ children }}
-                    </div>
-                {% endif %}
-            {% endrecursetree %}
-        </div>
+        {% include 'comments/discussion.html' %}
     </div>
-    <script>
-        function updateTotal(input, price) {
-            totalDisplay = document.getElementById('total');
-            totalDisplay.textContent = `${input.value} г. за ${input.value*price/input.step} ₽`;
-        }
-        updateTotal(document.getElementById('amount'), {{ tea.price }});
-        
-        // comments
-        const discussion = document.querySelector('#discussion');
-        discussion.addEventListener('click', function(event) {
-            if (event.target.tagName == 'BUTTON' && 
-            event.target.classList.contains('btn-reply')) {
-                document.querySelectorAll('.reply-form').forEach(box => {
-                    box.classList.add('d-none')
-                });
-                event.target.nextElementSibling.classList.remove('d-none')
-            }
-        });
-    </script>
 {% endblock content %}

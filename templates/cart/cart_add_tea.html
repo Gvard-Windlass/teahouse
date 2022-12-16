@@ -1,0 +1,43 @@
+{% load integer_division %}
+
+<div class="col col-auto">
+    <div class="mt-2">
+        <span class="fs-5">Количество</span>
+        <form action="{% url 'cart_add' %}" method="post">
+            {% csrf_token %}
+            <div class="d-flex my-2">
+                <span class="flex-shrink-0">{{ amount_step }} г.</span>
+                <input type="hidden" name="teaId" value="{{ tea.id }}">
+                <input type="hidden" name="nextPage" value="{{ request.path }}">
+                <input type="range"
+                id="amount"
+                name="amount"
+                class="form-range mx-2" 
+                min="{{ amount_step }}" value="{{ initial_value }}" 
+                max="{{ tea.tea_amount|int_divide:amount_step }}" step="{{ amount_step }}"
+                oninput="updateTotal(this, {{ tea.price }})">
+                <span class="flex-shrink-0">{{ tea.tea_amount|int_divide:amount_step }} г.</span>
+            </div>
+            <span id="total" class="fs-5">{{ amount_step }} г. за {{ tea.price }} ₽</span>
+            {% if added_to_cart %}
+            <em class="ms-2 fs-6">Товар в корзине</em>
+            {% endif %}
+            <br class="mb-3">
+            <button id="cart-submit" type="submit" class="btn btn-primary mb-3">
+                {% if added_to_cart %}
+                    Обновить
+                {% else %}
+                    В корзину
+                {% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function updateTotal(input, price) {
+        totalDisplay = document.getElementById('total');
+        totalDisplay.textContent = `${input.value} г. за ${input.value*price/input.step} ₽`;
+    }
+    updateTotal(document.getElementById('amount'), {{ tea.price }});
+</script>

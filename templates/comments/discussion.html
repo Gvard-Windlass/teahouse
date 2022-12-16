@@ -1,0 +1,25 @@
+{% load mptt_tags %}
+
+<div id="discussion">
+    {% recursetree comments %}
+    {% include 'comments/comment.html' %}
+        {% if not node.is_leaf_node %}
+            <div class="replies">
+                {{ children }}
+            </div>
+        {% endif %}
+    {% endrecursetree %}
+</div>
+
+<script>
+    const discussion = document.querySelector('#discussion');
+    discussion.addEventListener('click', function(event) {
+        if (event.target.tagName == 'BUTTON' && 
+        event.target.classList.contains('btn-reply')) {
+            document.querySelectorAll('.reply-form').forEach(box => {
+                box.classList.add('d-none')
+            });
+            event.target.nextElementSibling.classList.remove('d-none')
+        }
+    });
+</script>

@@ -16,57 +16,8 @@
 {% block main %}
 <div class="container d-flex mt-3">
     {% comment %} Бокове меню {% endcomment %}
-    <div class="accordion collapse collapse-horizontal show-md position-absolute-md" id="productLinks">
-        <div class="accordion-item">
-            <div class="accordion-header" id="teaLinks-header">
-                <button class="accordion-button p-2" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        data-bs-target="#teaLinks-menu" 
-                        aria-expanded="true"
-                        aria-controls="teaLinks-menu">
-                Чай
-                </button>
-            </div>
-            <div class="accordeon-collapse collapse show" id="teaLinks-menu" area-labelledby="teaLinks-header">
-                <div class="accordeon-body">
-                    <ul class="nav flex-column">
-                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Black' %}" class="nav-link">Красный</a></li>
-                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Dark' %}" class="nav-link">Чёрный</a></li>
-                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Green' %}" class="nav-link">Зелёный</a></li>
-                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Oolong' %}" class="nav-link">Улун</a></li>
-                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Puer' %}" class="nav-link">Пуэр</a></li>
-                        <li class="nav-item"><a href="{% url 'tea_by_type' 'White' %}" class="nav-link">Белый</a></li>
-                        <li class="nav-item"><a href="{% url 'tea_by_type' 'Yellow' %}" class="nav-link">Жёлтый</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    {% include 'catalogue/sidebar.html' %}
 
-        <div class="accordion-item">
-            <div class="accordion-header" id="utensilLinks-header">
-                <button class="accordion-button p-2" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        data-bs-target="#utensilLinks-menu" 
-                        area-expanded="true"
-                        area-controls="utensilLinks-menu">
-                Посуда и аксессуары
-                </button>
-            </div>
-            <div class="accordeon-collapse collapse show" id="utensilLinks-menu" area-labelledby="utensilLinks-header">
-                <div class="accordeon-body">
-                    <ul class="nav flex-column">
-                        <li class="nav-item"><a href="" class="nav-link">Чаши и пиалы</a></li>
-                        <li class="nav-item"><a href="" class="nav-link">Чайники для кипячения</a></li>
-                        <li class="nav-item"><a href="" class="nav-link">Заварочные чайники</a></li>
-                        <li class="nav-item"><a href="" class="nav-link">Гайвани</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
     {% comment %} Контент {% endcomment %}
     <div class="flex-grow-1 mx-2">
         {% block content %}{% endblock %}
