@@ -1,13 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
 
 from .models import Customer
 
 
 class CustomerRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    birthday = forms.DateField(required=True)
+    birthday = forms.DateField(required=True, label=_('birthday'), widget=forms.TextInput(attrs={'type': 'date'}))
 
     class Meta:
         model = User
@@ -33,3 +34,6 @@ class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ('birthday', 'avatar')
+        widgets = {
+            'birthday': forms.TextInput(attrs={'type': 'date'})
+        }
