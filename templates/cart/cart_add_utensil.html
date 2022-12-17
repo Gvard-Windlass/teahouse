@@ -1,0 +1,9 @@
+{% extends 'cart/cart_add.html' %}
+
+{% block max_value %}
+    max="{{ product.utensil_amount }}"
+{% endblock max_value %}
+
+{% block max_value_label %}
+    {{ product.utensil_amount }} шт.
+{% endblock max_value_label %}

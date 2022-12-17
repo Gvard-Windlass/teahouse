@@ -1,5 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.base import TemplateResponseMixin
 from django.shortcuts import render
 from django.conf import settings
 
@@ -35,27 +36,54 @@ class ProductListView(ListView):
         return context
 
 
-class TeaDetailView(DetailView):
-    model = Tea
-    template_name = 'catalogue/tea_detail.html'
-    context_object_name = 'tea'
-
+class ProductContextMixin(TemplateResponseMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        context['amount_step'] = settings.AMOUNT_STEP
+        context['amount_step'] = 1
         context['comment_form'] = CommentForm()
         context['comment_form'].fields['next_page'].initial = self.request.path
         context['comments'] = Comment.objects.filter(product=context['object'].id)
-
+        
         cart_amount = Cart.objects.get_cart_amount(self.request.user, context['object'].id)
+        
+        # TODO - amount should probubly be common field
+        amount_key = context['object'].product_type.lower()+'_amount'
+        product_amount = getattr(context['object'], amount_key)
+
         if cart_amount:
             context['added_to_cart'] = True
-            if cart_amount <= context['object'].tea_amount:
-                context['initial_value'] = cart_amount
-            else:
-                context['initial_value'] = context['object'].tea_amount
+            if product_amount:
+                if cart_amount <= product_amount:
+                    context['initial_value'] = cart_amount
+                else:
+                    context['initial_value'] = product_amount
         else:
+            context['initial_value'] = 1
+
+        return context, cart_amount
+
+
+class TeaDetailView(ProductContextMixin, DetailView):
+    model = Tea
+    template_name = 'catalogue/tea_detail.html'
+    context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context, cart_amount = super().get_context_data(**kwargs)
+        context['amount_step'] = settings.AMOUNT_STEP
+
+        if not cart_amount:
             context['initial_value'] = settings.AMOUNT_STEP
         
+        return context
+
+
+class UtensilDetailView(ProductContextMixin, DetailView):
+    model = Utensil
+    tempalte_name = 'catalogue/utensil_detail.html'
+    context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context, cart_amount = super().get_context_data(**kwargs)
         return context

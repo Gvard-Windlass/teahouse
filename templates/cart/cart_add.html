@@ -1,0 +1,56 @@
+<div class="col col-auto">
+    <div class="mt-2">
+        <span class="fs-5">Количество</span>
+        <form action="{% url 'cart_add' %}" method="post">
+            {% csrf_token %}
+            <div class="d-flex my-2">
+                <span class="flex-shrink-0">
+                    {% block min_value_label %}
+                        {{ amount_step }} шт.
+                    {% endblock min_value_label %}
+                </span>
+                <input type="hidden" name="productId" value="{{ product.id }}">
+                <input type="hidden" name="nextPage" value="{{ request.path }}">
+                <input type="range"
+                id="amount"
+                name="amount"
+                class="form-range mx-2" 
+                min="{{ amount_step }}" value="{{ initial_value }}"
+                {% block max_value %}
+                    max="" 
+                {% endblock max_value %}
+                step="{{ amount_step }}"
+                {% block oninput %}
+                    oninput="updateTotal(this, {{ product.price }})"
+                {% endblock oninput %}>
+                <span class="flex-shrink-0">
+                    {% block max_value_label %}{% endblock max_value_label %}
+                </span>
+            </div>
+            <span id="total" class="fs-5">
+                {% block total_display %}{{ amount_step }} шт. за {{ product.price }}{% endblock total_display %}
+            ₽</span>
+            {% if added_to_cart %}
+            <em class="ms-2 fs-6">Товар в корзине</em>
+            {% endif %}
+            <br class="mb-3">
+            <button id="cart-submit" type="submit" class="btn btn-primary mb-3">
+                {% if added_to_cart %}
+                    Обновить
+                {% else %}
+                    В корзину
+                {% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+
+{% block total_update_script %}
+    <script>
+        function updateTotal(input, price) {
+            totalDisplay = document.getElementById('total');
+            totalDisplay.textContent = `${input.value} шт. за ${input.value*price} ₽`;
+        }
+        updateTotal(document.getElementById('amount'), {{ product.price }});
+    </script>
+{% endblock total_update_script %}

@@ -23,7 +23,7 @@ class TestCartAddView(TestCase):
         )
         form_data = {
             'amount': 10,
-            'teaId': 1,
+            'productId': 1,
             'nextPage': '/tea/1/'
         }
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
@@ -68,6 +68,6 @@ class TestCartRemoveView(TestCase):
 
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
         
-        response = self.client.post('/cart_remove/', data={'teaId': 1})
+        response = self.client.post('/cart_remove/', data={'productId': 1})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(Cart.objects.all()), 0)

@@ -7,20 +7,7 @@
     <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-2" id="products">
         {% for product in products %}
             <div class="col text-center">
-                <div class="card p-2">
-                    <img src="{{ product.image.url }}" 
-                        alt="изображение товара"
-                        class="card-image-top product-image mx-auto">
-                    <div class="card-body">
-                        <a href="{% url 'tea_detail' product.id %}" class="card-title">{{ product.name }}</a>
-                        <br>
-                        <span class="card-text">{{ product.price }} ₽</span>
-                    </div>
-                    <button 
-                    class="btn btn-primary btn-sm fs-4 py-0 btnWishlist" 
-                    value="{{ product.id }}"
-                    type="submit">♡</button>
-                </div>
+                {% include 'catalogue/product_preview.html' %}
             </div>
         {% endfor %}
     </div>

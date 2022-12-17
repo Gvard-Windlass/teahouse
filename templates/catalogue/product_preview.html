@@ -1,0 +1,16 @@
+{% with product.product_type|lower|add:'_detail' as detail_url %}
+    <div class="card p-2">
+        <img src="{{ product.image.url }}" 
+            alt="изображение товара"
+            class="card-image-top product-image mx-auto">
+        <div class="card-body">
+            <a href="{% url detail_url product.id %}" class="card-title">{{ product.name }}</a>
+            <br>
+            <span class="card-text">{{ product.price }} ₽</span>
+        </div>
+        <button 
+        class="btn btn-primary btn-sm fs-4 py-0 btnWishlist" 
+        value="{{ product.id }}"
+        type="submit">♡</button>
+    </div>
+{% endwith %}

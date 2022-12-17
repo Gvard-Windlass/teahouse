@@ -28,7 +28,7 @@
                         <td class="text-end">
                             <form action="{% url 'cart_remove' %}" method="post">
                                 {% csrf_token %}
-                                <input type="hidden" name="teaId" value="{{ cart_item.product.id }}">
+                                <input type="hidden" name="productId" value="{{ cart_item.product.id }}">
                                 <button class="btn">❌</button>
                             </form>
                         </td>

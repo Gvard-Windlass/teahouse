@@ -13,9 +13,9 @@ class AddToCartView(LoginRequiredMixin, View):
 
     def post(self, request: HttpRequest, *args, **kwargs):
         amount = request.POST.get('amount')
-        tea_id = int(request.POST.get('teaId'))
+        product_id = int(request.POST.get('productId'))
         
-        Cart.objects.add_to_cart(tea_id, request.user, amount)
+        Cart.objects.add_to_cart(product_id, request.user, amount)
 
         nextPage = request.POST.get('nextPage')
         return redirect(nextPage)
@@ -25,9 +25,9 @@ class RemoveFromCartView(LoginRequiredMixin, View):
     login_url = '/login'
 
     def post(self, request: HttpRequest, *args, **kwargs):
-        tea_id = int(request.POST.get('teaId'))
+        product_id = int(request.POST.get('productId'))
 
-        Cart.objects.remove_from_cart(tea_id, request.user)
+        Cart.objects.remove_from_cart(product_id, request.user)
 
         return redirect('cart')
 

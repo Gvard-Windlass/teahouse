@@ -2,7 +2,7 @@
 
 {% if user.is_authenticated %}
     <em class="my-2">оставить комментарий</em>
-    <form action="{% url 'comments_create' tea.id %}" method="post" class="my-2">
+    <form action="{% url 'comments_create' product.id %}" method="post" class="my-2">
         {% csrf_token %}
         <div class="row row-cols-auto align-items-center">
             <div class="col">
