@@ -1,0 +1,26 @@
+{% extends 'catalogue/home.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="mx-2">
+        <span class="fs-4">{{ product.name }}</span>
+        <div class="row row-cols-2">
+            <div class="col col-auto">
+                <img class="product-image d-block my-3" src="{{ product.image.url }}" alt="изображение товара">
+            </div>
+            {% block cart %}
+                {% include 'cart/cart_add.html' %}
+            {% endblock cart %}
+        </div>
+        <span class="fs-5">Описание</span>
+        <div class="my-2">
+            {% block specific_info %}{% endblock specific_info %}
+        </div>
+        <p class="mt-2">{{ product.description }}</p>
+        <span class="fs-5">Комментарии</span>
+        <br>
+        {% include 'comments/add_comment.html' %}
+        <hr>
+        {% include 'comments/discussion.html' %}
+    </div>
+{% endblock content %}

@@ -1,21 +1,6 @@
-{% extends 'catalogue/home.html' %}
-{% load static %}
+{% extends 'catalogue/product_detail.html' %}
+{% load i18n %}
 
-{% block content %}
-    <div class="mx-2">
-        <span class="fs-4">{{ product.name }}</span>
-        <div class="row row-cols-2">
-            <div class="col col-auto">
-                <img class="product-image d-block my-3" src="{{ product.image.url }}" alt="изображение товара">
-            </div>
-            {% include 'cart/cart_add.html' %}
-        </div>
-        <span class="fs-5">Описание</span>
-        <p class="mt-2">{{ product.description }}</p>
-        <span class="fs-5">Комментарии</span>
-        <br>
-        {% include 'comments/add_comment.html' %}
-        <hr>
-        {% include 'comments/discussion.html' %}
-    </div>
-{% endblock content %}
+{% block specific_info %}
+    <p>Материал: {% translate product.utensil_material %}</p>
+{% endblock specific_info %}
