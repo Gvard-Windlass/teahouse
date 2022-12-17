@@ -8,9 +8,13 @@
             <div class="col col-auto">
                 <img class="product-image d-block my-3" src="{{ product.image.url }}" alt="изображение товара">
             </div>
-            {% block cart %}
-                {% include 'cart/cart_add.html' %}
-            {% endblock cart %}
+            {% if product.amount %}
+                {% block cart %}
+                    {% include 'cart/cart_add.html' %}
+                {% endblock cart %}
+            {% else %}
+                <p class="fs-5 mt-2">Нет в наличии</p>
+            {% endif %}
         </div>
         <span class="fs-5">Описание</span>
         <div class="my-2">
