@@ -47,9 +47,7 @@ class ProductContextMixin(TemplateResponseMixin):
         
         cart_amount = Cart.objects.get_cart_amount(self.request.user, context['object'].id)
         
-        # TODO - amount should probubly be common field
-        amount_key = context['object'].product_type.lower()+'_amount'
-        product_amount = getattr(context['object'], amount_key)
+        product_amount = getattr(context['object'], 'amount', None)
 
         if cart_amount:
             context['added_to_cart'] = True

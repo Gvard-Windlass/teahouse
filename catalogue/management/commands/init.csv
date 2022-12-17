@@ -1,5 +1,5 @@
 Content:Tea,,,,,,,
-product_type,name,price,image,description,tea_type,tea_year,tea_amount
+product_type,name,price,image,description,tea_type,tea_year,amount
 Tea,Черный чай №1,91,black1.jpg,,Black,2018,464
 Tea,Черный чай №2,614,black2.jpg,,Black,2017,494
 Tea,Черный чай №3,163,black3.jpg,,Black,2016,659
@@ -44,7 +44,7 @@ Tea,Белый чай №6,212,white6.jpg,,White,2017,2656
 Tea,Желтый чай №1,919,yellow1.jpg,,Yellow,2016,2737
 ,,,,,,,
 Content:Utensil,,,,,,,
-product_type,name,price,image,description,utensil_type,utensil_material,utensil_amount
+product_type,name,price,image,description,utensil_type,utensil_material,amount
 Utensil,Чашка №1,544,cup1.jpg,,Cup,Ceramic,9
 Utensil,Чашка №2,989,cup2.jpg,,Cup,Porcelain,7
 Utensil,Чашка №3,1922,cup3.jpg,,Cup,Porcelain,8

@@ -39,6 +39,7 @@ class Product(models.Model):
     # common fields
     name = models.CharField(max_length=70)
     price = models.FloatField()
+    amount = models.PositiveIntegerField(null=True)
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
     description = models.TextField()
     users_wishlist = models.ManyToManyField(User, blank=True, related_name='wishlist')
@@ -57,7 +58,6 @@ class Product(models.Model):
 
     tea_type = models.CharField(choices=TeaType.choices, max_length=20, null=True)
     tea_year = models.PositiveSmallIntegerField(null=True)
-    tea_amount = models.FloatField(null=True)
 
     # utensil fields
     class UtensilType(models.TextChoices):
@@ -74,7 +74,6 @@ class Product(models.Model):
 
     utensil_type = models.CharField(choices=UtensilType.choices, max_length=20, null=True)
     utensil_material = models.CharField(choices = UtensilMaterial.choices, max_length=20, null=True)
-    utensil_amount = models.PositiveIntegerField(null=True)
 
 
 class TeaManager(models.Manager):

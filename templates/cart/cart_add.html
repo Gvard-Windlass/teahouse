@@ -17,14 +17,14 @@
                 class="form-range mx-2" 
                 min="{{ amount_step }}" value="{{ initial_value }}"
                 {% block max_value %}
-                    max="" 
+                    max="{{ product.amount }}" 
                 {% endblock max_value %}
                 step="{{ amount_step }}"
                 {% block oninput %}
                     oninput="updateTotal(this, {{ product.price }})"
                 {% endblock oninput %}>
                 <span class="flex-shrink-0">
-                    {% block max_value_label %}{% endblock max_value_label %}
+                    {% block max_value_label %}{{ product.amount }} шт.{% endblock max_value_label %}
                 </span>
             </div>
             <span id="total" class="fs-5">

@@ -32,13 +32,13 @@ class TestCartAddPage(StaticLiveServerTestCase):
         user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
         Tea.objects.create(
             name='test tea 1',
-            price = 300.5,
+            price = 300,
             image = 'product_images/black1.jpg',
             description = 'tea for testing',
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2022,
-            tea_amount = 300.5
+            amount = 300
         )
         force_login(user, self.selenium, self.live_server_url)
 
@@ -65,13 +65,13 @@ class TestCartPage(StaticLiveServerTestCase):
     def setUp(self) -> None:
         tea = Tea.objects.create(
             name='test tea 1',
-            price = 300.5,
+            price = 300,
             image = 'product_images/black1.jpg',
             description = 'tea for testing',
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2022,
-            tea_amount = 300.5
+            amount = 300
         )
         self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
         Cart.objects.create(product=tea, user=self.user, amount=10)

@@ -28,13 +28,13 @@ class TestWishlistToggle(StaticLiveServerTestCase):
     def test_wishlist_toggle(self):
         Tea.objects.create(
             name='test tea 1',
-            price = 300.5,
+            price = 300,
             image = 'product_images/black1.jpg',
             description = 'tea for testing',
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2022,
-            tea_amount = 300.5
+            amount = 300
         )
 
         self.selenium.get(f'{self.live_server_url}/product_catalogue/')
@@ -60,13 +60,13 @@ class TestWishlistPage(StaticLiveServerTestCase):
     def test_wishlist_page_anonymous(self):
         Tea.objects.create(
             name='test tea 1',
-            price = 300.5,
+            price = 300,
             image = 'product_images/black1.jpg',
             description = 'tea for testing',
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2022,
-            tea_amount = 300.5
+            amount = 300
         )
 
         self.selenium.get(f'{self.live_server_url}/product_catalogue/')
@@ -82,13 +82,13 @@ class TestWishlistPage(StaticLiveServerTestCase):
     def test_wishlist_page_authenticated(self):
         Tea.objects.create(
             name='test tea 1',
-            price = 300.5,
+            price = 300,
             image = 'product_images/black1.jpg',
             description = 'tea for testing',
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2022,
-            tea_amount = 300.5
+            amount = 300
         )
 
         user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')

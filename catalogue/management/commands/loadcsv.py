@@ -79,7 +79,7 @@ class Command(BaseCommand):
                     'description': description,
                     'tea_type': tea_info['tea_type'],
                     'tea_year': tea_info['tea_year'],
-                    'tea_amount': tea_info['tea_amount'],
+                    'amount': tea_info['amount'],
                 }
             )
             if created:
@@ -96,11 +96,11 @@ class Command(BaseCommand):
                 defaults={
                     'product_type': utensil_info['product_type'],
                     'price': utensil_info['price'],
+                    'amount': utensil_info['amount'],
                     'image': self.image_folder+utensil_info['image'],
                     'description': description,
                     'utensil_type': utensil_info['utensil_type'],
                     'utensil_material': utensil_info['utensil_material'],
-                    'utensil_amount': utensil_info['utensil_amount'],
                 }
             )
             if created:

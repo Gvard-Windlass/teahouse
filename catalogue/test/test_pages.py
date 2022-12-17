@@ -61,13 +61,13 @@ class TestProductsDisplay(StaticLiveServerTestCase):
     def test_tea_display(self):
         Tea.objects.create(
             name='test tea 1',
-            price = 300.5,
+            price = 300,
             image = 'product_images/black1.jpg',
             description = 'tea for testing',
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2022,
-            tea_amount = 300.5
+            amount = 300
         )
 
         Tea.objects.create(
@@ -78,7 +78,7 @@ class TestProductsDisplay(StaticLiveServerTestCase):
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2021,
-            tea_amount = 50.5
+            amount = 50
         )
 
         self.selenium.get(f'{self.live_server_url}/product_catalogue/')
@@ -102,13 +102,13 @@ class TestProductDetailPage(StaticLiveServerTestCase):
     def test_tea_detail_page(self):
         tea = Tea.objects.create(
             name='test tea 1',
-            price = 300.5,
+            price = 300,
             image = 'product_images/black1.jpg',
             description = 'tea for testing',
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2022,
-            tea_amount = 300.5
+            amount = 300
         )
 
         self.selenium.get(f'{self.live_server_url}/tea/{tea.id}/')

@@ -6,7 +6,7 @@
 {% endblock min_value_label %}
 
 {% block max_value %}
-    max="{{ product.tea_amount|int_divide:amount_step }}" step="{{ amount_step }}"
+    max="{{ product.amount|int_divide:amount_step }}" step="{{ amount_step }}"
 {% endblock max_value %}
 
 {% block oninput %}
@@ -14,7 +14,7 @@ oninput="updateTotal(this, {{ product.price }})"
 {% endblock oninput %}
 
 {% block max_value_label %}
-    {{ product.tea_amount|int_divide:amount_step }} г.
+    {{ product.amount|int_divide:amount_step }} г.
 {% endblock max_value_label %}
 
 {% block total_display %}

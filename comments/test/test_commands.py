@@ -10,13 +10,13 @@ class TestCSVLoader(TestCase):
     def setUp(self) -> None:
         Tea.objects.create(
             name='Черный чай №1',
-            price = 300.5,
+            price = 300,
             image = 'product_images/black1.jpg',
             description = 'tea for testing',
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2022,
-            tea_amount = 300.5
+            amount = 300
         )
 
 

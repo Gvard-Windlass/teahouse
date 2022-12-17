@@ -17,12 +17,12 @@ class TestTeaModel(TestCase):
     def test_create_tea(self):
         tea = Tea.objects.create(
             name='test tea',
-            price = 300.5,
+            price = 300,
             description = 'tea for testing',
             product_type = 'Tea',
             tea_type = 'Black',
             tea_year = 2022,
-            tea_amount = 300.5
+            amount = 300
         )
         self.assertIsInstance(tea, Tea)
 
@@ -32,10 +32,10 @@ class TestUtensilModel(TestCase):
         tea = Utensil.objects.create(
             name='test cup',
             price = 100.5,
+            amount = 10,
             description = 'utensil for testing',
             product_type = 'Utensil',
             utensil_type = 'Cup',
             utensil_material = 'Ceramic',
-            utensil_amount = 10
         )
         self.assertIsInstance(tea, Utensil)
