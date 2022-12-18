@@ -7,7 +7,9 @@ from selenium.webdriver.common.keys import Keys
 
 # NOTE: flashes page 404 in the beginning of tests, expected behavior
 from seleniumlogin import force_login
+import re
 
+from django.core import mail
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User, AnonymousUser
 from django.test import Client
@@ -170,3 +172,67 @@ class TestPasswordChangePage(StaticLiveServerTestCase):
         current_url = self.selenium.current_url
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
         self.selenium.save_screenshot('C:\Dev\django_dev_1\selenium_screenshots\\new.png')
+
+
+class TestPasswordResetPages(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+
+    def test_password_reset(self):
+        User.objects.create_user(username='gvard', password='Bk7^31&3LDXt', email='test@example.com')
+        
+        # ask for password reset
+        self.selenium.get(f'{self.live_server_url}/password_reset/')
+
+        reset_email = self.selenium.find_element(By.ID, 'id_email')
+        reset_butotn = self.selenium.find_element(By.ID, 'reset-submit')
+        
+        current_url = self.selenium.current_url
+        reset_email.send_keys('test@example.com')
+        reset_butotn.click()
+
+        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+        self.assertEqual(self.selenium.current_url, f'{self.live_server_url}/password_reset_done/')
+        
+        # go to password reset url and submit new password
+        reset_link = re.search(re.compile('^http.+$', re.MULTILINE), mail.outbox[0].body)
+        self.assertTrue(reset_link)
+        
+        self.selenium.get(reset_link.group())
+
+        new_password_input1 = self.selenium.find_element(By.ID, 'id_new_password1')
+        new_password_input2 = self.selenium.find_element(By.ID, 'id_new_password2')
+        submit_button = self.selenium.find_element(By.ID, 'submit-button')
+
+        current_url = self.selenium.current_url
+        new_password = 'aA9590Ak$^yo'
+        new_password_input1.send_keys(new_password)
+        new_password_input2.send_keys(new_password)
+        submit_button.click()
+
+        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+        self.assertEqual(self.selenium.current_url, f'{self.live_server_url}/password_reset_complete/')
+
+        # login with new password
+        self.selenium.get(f'{self.live_server_url}/login')
+        username_input = self.selenium.find_element(By.ID, 'id_username')
+        password_input = self.selenium.find_element(By.ID, 'id_password')
+        submit_button = self.selenium.find_element(By.ID, 'auth-submit')
+
+        username_input.send_keys('gvard')
+        password_input.send_keys(new_password)
+        submit_button.send_keys(Keys.RETURN)
+
+        current_url = self.selenium.current_url
+        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+
+        self.assertEqual(self.selenium.current_url, f'{self.live_server_url}/')        

@@ -17,6 +17,7 @@
         <form method="post">
             {% csrf_token %}
             {{ form|crispy }}
+            {% block additional_directions %}{% endblock additional_directions %}
             <div class="text-center">
                 <button id="auth-submit" class="btn btn-primary" type="submit">{% block button_title %}{% endblock button_title %}</button>
             </div>

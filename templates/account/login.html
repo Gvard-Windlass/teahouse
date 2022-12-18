@@ -2,3 +2,7 @@
 
 {% block login_tab %}active disabled{% endblock login_tab %}
 {% block button_title %}Вход{% endblock button_title %}
+
+{% block additional_directions %}
+    <p>Забыли пароль? Вы можете <a href="{% url 'password_reset' %}">восстановить</a> аккаунт с новым паролем</p>
+{% endblock additional_directions %}
