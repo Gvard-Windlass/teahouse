@@ -45,7 +45,7 @@ class TestRegistrationPage(StaticLiveServerTestCase):
         username_input.send_keys('gvard')
         first_name_input.send_keys('Gvard')
         last_name_input.send_keys('Windlass')
-        birthday_input.send_keys('2000-1-1')
+        birthday_input.send_keys('2000-01-01')
         email_input.send_keys('test@example.com')
         password1_input.send_keys('Bk7^31&3LDXt')
         password2_input.send_keys('Bk7^31&3LDXt')
