@@ -16,8 +16,8 @@
         <div class="container flex-nowrap">
             {% block navbar_left %}{% endblock navbar_left %}
             <a href="{% url 'home' %}" class="navbar-brand flex-grow-1">Teahouse</a>
-            <form action="" role="search" class="d-flex flex-grow-1">
-                <input type="search" class="form-control">
+            <form action="{% url 'product_search' %}" role="search" class="d-flex flex-grow-1" method="get">
+                <input name="q" type="search" class="form-control">
                 <button type="submit" class="btn btn-outline-dark mx-2">Поиск</button>
             </form>
             {% if not user.is_authenticated %}

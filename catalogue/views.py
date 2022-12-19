@@ -36,6 +36,24 @@ class ProductListView(ListView):
         return context
 
 
+class ProductSearchView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'catalogue/products.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        # seems like sqlite are case-sensetive even with icontains for ru
+        # https://docs.djangoproject.com/en/4.1/ref/databases/#substring-matching-and-case-sensitivity
+        products = Product.objects.filter(name__icontains=query)
+        return products
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products_title'] = 'Search results'
+        return context
+
+
 class ProductContextMixin(TemplateResponseMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

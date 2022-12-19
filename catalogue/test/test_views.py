@@ -36,3 +36,13 @@ class TestTeaDetailView(TestCase):
 
         response = self.client.get('/tea/1/')
         self.assertEqual(response.status_code, 200)
+
+
+class TestProductSearchView(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    
+    def test_tea_detail_view(self):
+        response = self.client.get('/product_search/?q=tea')
+        self.assertEqual(response.status_code, 200)

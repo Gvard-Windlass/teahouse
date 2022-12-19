@@ -48,6 +48,8 @@ msgid "All Utensils"
 msgstr "Вся посуда и аксессуары"
 msgid "All Products"
 msgstr "Все товары"
+msgid "Search results"
+msgstr "Результаты поиска"
 
 #: .\templates\catalogue\utensil_detail.html:5
 msgid "Ceramic"

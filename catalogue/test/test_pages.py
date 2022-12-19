@@ -3,6 +3,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from catalogue.models import Tea
 
@@ -120,3 +123,52 @@ class TestProductDetailPage(StaticLiveServerTestCase):
         
         move.click_and_hold(amount_imput).move_by_offset(10, 0).release().perform()
         self.assertNotEqual(initial_total, total_display.text)
+
+
+class TestHomePage(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+
+    def test_tea_detail_page(self):
+        Tea.objects.create(
+            name='test tea 1',
+            price = 300,
+            image = 'product_images/black1.jpg',
+            description = 'tea for testing',
+            product_type = 'Tea',
+            tea_type = 'Black',
+            tea_year = 2022,
+            amount = 300
+        )
+        Tea.objects.create(
+            name='test tea 2',
+            price = 200.5,
+            image = 'product_images/black2.jpg',
+            description = 'tea for testing',
+            product_type = 'Tea',
+            tea_type = 'Black',
+            tea_year = 2021,
+            amount = 50
+        )
+
+        self.selenium.get(f'{self.live_server_url}/')
+
+        search_input = self.selenium.find_element(By.NAME, 'q')
+        current_url = self.selenium.current_url
+
+        search_input.send_keys('test tea')
+        search_input.send_keys(Keys.RETURN)
+
+        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+
+        products = self.selenium.find_elements(By.CLASS_NAME, 'card')
+        self.assertEqual(len(products), 2)
