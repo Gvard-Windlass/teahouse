@@ -150,6 +150,6 @@ class TestAddComment(StaticLiveServerTestCase):
         
         reply_input.send_keys('test reply')
         add_reply_button.send_keys(Keys.RETURN)
-        WebDriverWait(self.selenium, 10).until(EC.presence_of_element_located((By.TAG_NAME, '.replies')))
+        WebDriverWait(self.selenium, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'replies')))
 
         self.assertEqual(len(self.selenium.find_elements(By.CLASS_NAME, 'card')), 2)
