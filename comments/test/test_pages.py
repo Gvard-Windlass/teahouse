@@ -6,6 +6,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 
 from seleniumlogin import force_login
 
@@ -148,6 +149,7 @@ class TestAddComment(StaticLiveServerTestCase):
         add_reply_button = self.selenium.find_element(By.CSS_SELECTOR, '.reply-form #add-comment')
         
         reply_input.send_keys('test reply')
-        add_reply_button.click()
+        add_reply_button.send_keys(Keys.RETURN)
+        WebDriverWait(self.selenium, 10).until(EC.presence_of_element_located((By.TAG_NAME, '.replies')))
 
         self.assertEqual(len(self.selenium.find_elements(By.CLASS_NAME, 'card')), 2)
