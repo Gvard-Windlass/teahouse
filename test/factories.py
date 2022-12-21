@@ -1,9 +1,7 @@
 import factory
 import factory.random
-from faker import Faker
 
 factory.random.reseed_random('teahouse')
-fake = Faker()
 
 class TeaFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -11,10 +9,10 @@ class TeaFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ('name',)
 
     name = factory.Sequence(lambda n: 'test tea №%d' % n)
-    price = fake.pyfloat(positive=True)
+    price = factory.Faker('pyfloat', positive=True)
     image = factory.Sequence(lambda n: 'product_images/black%d.jpg' % n)
-    amount = fake.pyint()
-    description = fake.paragraph(nb_sentences=5)
+    amount = factory.Faker('pyint')
+    description = factory.Faker('paragraph', nb_sentences=5)
     product_type= 'Tea'
     tea_type = 'Black'
-    tea_year = fake.year()
+    tea_year = factory.Faker('year')
