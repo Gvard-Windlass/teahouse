@@ -11,7 +11,7 @@ from seleniumlogin import force_login
 
 from catalogue.models import Tea
 from cart.models import Cart
-from test.factories import TeaFactory
+from test.factories import TeaFactory, UserFactory
 
 import test.selenium_setup as setup
 
@@ -29,7 +29,7 @@ class TestCartAddPage(StaticLiveServerTestCase):
 
 
     def test_cart_add_page(self):
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        user = UserFactory.create()
         TeaFactory.create()
         force_login(user, self.selenium, self.live_server_url)
 
@@ -55,7 +55,7 @@ class TestCartPage(StaticLiveServerTestCase):
     
     def setUp(self) -> None:
         tea = TeaFactory.create()
-        self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        self.user = UserFactory.create()
         Cart.objects.create(product=tea, user=self.user, amount=10)
 
 

@@ -15,6 +15,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.test import Client
 from django.contrib import auth
 
+from test.factories import UserFactory
 import test.selenium_setup as setup
 
 class TestRegistrationPage(StaticLiveServerTestCase):
@@ -76,7 +77,7 @@ class TestLoginPage(StaticLiveServerTestCase):
 
     
     def test_login_success(self):
-        User.objects.create_user(username='gvard', password='Bk7^31&3LDXt').save()
+        UserFactory.create()
         # can't achieve unit tests to be able to actually say if user is logged in or not,
         # despite template react accordingly in screenshots, thus, this line is likely redundant
         self.assertIsInstance(auth.get_user(self.client), AnonymousUser)
@@ -111,7 +112,7 @@ class TestProfilePage(StaticLiveServerTestCase):
 
 
     def test_user_update(self):
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        user = UserFactory.create(email=None)
         user.customer.birthday = '2000-01-01'
         user.save()
         force_login(user, self.selenium, self.live_server_url)
@@ -153,7 +154,7 @@ class TestPasswordChangePage(StaticLiveServerTestCase):
 
 
     def test_password_chage(self):
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        user = UserFactory.create()
         force_login(user, self.selenium, self.live_server_url)
 
         # test password change
@@ -187,7 +188,7 @@ class TestPasswordResetPages(StaticLiveServerTestCase):
 
 
     def test_password_reset(self):
-        User.objects.create_user(username='gvard', password='Bk7^31&3LDXt', email='test@example.com')
+        UserFactory.create()
         
         # ask for password reset
         self.selenium.get(f'{self.live_server_url}/password_reset/')

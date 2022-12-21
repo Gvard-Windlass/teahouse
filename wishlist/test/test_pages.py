@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from seleniumlogin import force_login
 
 from catalogue.models import Tea
-from test.factories import TeaFactory
+from test.factories import TeaFactory, UserFactory
 
 import test.selenium_setup as setup
 
@@ -64,7 +64,7 @@ class TestWishlistPage(StaticLiveServerTestCase):
     def test_wishlist_page_authenticated(self):
         TeaFactory.create()
 
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        user = UserFactory.create()
         force_login(user, self.selenium, self.live_server_url)
         
         self.selenium.get(f'{self.live_server_url}/product_catalogue/')

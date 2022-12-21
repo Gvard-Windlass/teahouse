@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from test.factories import UserFactory
 
 class TestRegisterView(TestCase):
     def setUp(self):
@@ -39,7 +38,7 @@ class TestProfileView(TestCase):
 
     
     def test_profile_view_authorized(self):
-        User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        UserFactory.create()
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
         response = self.client.get('/profile/')
         self.assertEqual(response.status_code, 200)
@@ -56,7 +55,7 @@ class TestPasswordChangeView(TestCase):
 
     
     def test_password_change_view(self):
-        User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        UserFactory.create()
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
         response = self.client.get('/profile/password/')
         self.assertEqual(response.status_code, 200)
@@ -68,7 +67,7 @@ class TestPasswordChangeDoneView(TestCase):
 
     
     def test_password_change_done_view(self):
-        User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        UserFactory.create()
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
         form_data = {
             'old_password': 'Bk7^31&3LDXt',

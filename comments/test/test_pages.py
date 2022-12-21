@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 from seleniumlogin import force_login
 
 from catalogue.models import Tea
-from test.factories import TeaFactory
+from test.factories import TeaFactory, UserFactory
 from comments.models import Comment
 
 import test.selenium_setup as setup
@@ -80,7 +80,7 @@ class TestAddComment(StaticLiveServerTestCase):
 
     def setUp(self) -> None:
         self.tea = TeaFactory.create()
-        self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        self.user = UserFactory.create()
 
 
     def test_comment_post_success(self):

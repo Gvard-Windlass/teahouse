@@ -1,7 +1,7 @@
 from django.test import TestCase
 from account.forms import CustomerRegistrationForm, UserForm, CustomerForm
 from django.contrib.auth.models import User
-
+from test.factories import UserFactory
 
 class TestRegistrationForm(TestCase):
     def test_register_customer(self):
@@ -23,7 +23,7 @@ class TestRegistrationForm(TestCase):
 
 class TestUserForm(TestCase):
     def test_update_user(self):
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        user = UserFactory.create()
 
         form_data = {
             'username': 'gvard',
@@ -41,7 +41,7 @@ class TestUserForm(TestCase):
 
 class TestCustomerForm(TestCase):
     def test_update_customer(self):
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        user = UserFactory.create()
         user.customer.birthday = '2000-01-01'
         user.save()
 

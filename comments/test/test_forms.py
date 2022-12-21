@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 from comments.forms import CommentForm
 from comments.models import Comment
 from catalogue.models import Product
-from test.factories import ProductFactory
+from test.factories import ProductFactory, UserFactory
 
 class TestCommentForm(TestCase):
     def test_add_comment(self):
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        user = UserFactory.create()
         product = ProductFactory.create()
         form_data = {
             'text': 'test comment',

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from catalogue.models import Tea
 from cart.models import Cart
-from test.factories import TeaFactory
+from test.factories import TeaFactory, UserFactory
 
 class TestCartAddView(TestCase):
     def setUp(self):
@@ -11,7 +11,7 @@ class TestCartAddView(TestCase):
 
 
     def test_cart_add_view(self):
-        User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        UserFactory.create()
         TeaFactory.create()
         form_data = {
             'amount': 10,
@@ -32,7 +32,7 @@ class TestCartView(TestCase):
 
 
     def test_cart_view(self):
-        User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        UserFactory.create()
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
 
         response = self.client.get('/cart/')
@@ -45,7 +45,7 @@ class TestCartRemoveView(TestCase):
 
     
     def test_cart_remove(self):
-        user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        user = UserFactory.create()
         product = TeaFactory.create()
         Cart.objects.create(product=product, user=user, amount=200)
 

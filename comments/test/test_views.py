@@ -1,14 +1,14 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from catalogue.models import Tea
-from test.factories import TeaFactory
+from test.factories import TeaFactory, UserFactory
 from comments.models import Comment
 from django.urls import reverse
 
 class TestCommentCreateView(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        self.user = UserFactory.create()
         self.product = TeaFactory.create()
 
     

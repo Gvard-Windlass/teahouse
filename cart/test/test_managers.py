@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from catalogue.models import Tea
 from cart.models import Cart
-from test.factories import TeaFactory
+from test.factories import TeaFactory, UserFactory
 
 class TestCartManager(TestCase):
     def setUp(self):
@@ -12,7 +12,7 @@ class TestCartManager(TestCase):
         product = TeaFactory.create()
         TeaFactory.create()
         
-        self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
+        self.user = UserFactory.create()
         Cart.objects.create(product=product, user=self.user, amount=200)
 
     
