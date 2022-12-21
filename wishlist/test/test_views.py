@@ -5,6 +5,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from wishlist.wishlist import Wishlist
 from wishlist.views import WishlistAddView, WishlistRemoveView, WishlistGetView
 from catalogue.models import Product
+from test.factories import ProductFactory
 import json
 
 
@@ -14,12 +15,7 @@ class TestWishlistAddView(TestCase):
         self.client = Client()
 
     def test_wishlist_add_session(self):
-        Product.objects.create(
-            name='test product', 
-            price = 10.5,
-            description = 'product for testing',
-            product_type = 'Misc'
-        )
+        ProductFactory.create()
         request = self.factory.post(
             '/wishlist_add/', 
             data = {'productid': '1'},
@@ -43,12 +39,7 @@ class TestWishlistAddView(TestCase):
             username = 'gvard',
             password = 'Bk7^31&3LDXt',
         )
-        Product.objects.create(
-            name='test product', 
-            price = 10.5,
-            description = 'product for testing',
-            product_type = 'Misc'
-        )
+        ProductFactory.create()
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
         
         response = self.client.post('/wishlist_add/', 
@@ -68,12 +59,8 @@ class TestWishlistRemoveView(TestCase):
 
 
     def test_wishlist_remove_session(self):
-        product = Product.objects.create(
-            name='test product', 
-            price = 10.5,
-            description = 'product for testing',
-            product_type = 'Misc'
-        )
+        product = ProductFactory.create()
+
         request = self.factory.post(
             '/wishlist_remove/', 
             data = {'productid': '1'},
@@ -99,12 +86,8 @@ class TestWishlistRemoveView(TestCase):
             username = 'gvard',
             password = 'Bk7^31&3LDXt',
         )
-        product = Product.objects.create(
-            name='test product', 
-            price = 10.5,
-            description = 'product for testing',
-            product_type = 'Misc'
-        )
+        product = ProductFactory.create()
+
         product.users_wishlist.add(user)
         user.save()
         product.save()
@@ -129,12 +112,7 @@ class TestWishlistGetView(TestCase):
 
     
     def test_wishlist_get_session(self):
-        product = Product.objects.create(
-            name='test product', 
-            price = 10.5,
-            description = 'product for testing',
-            product_type = 'Misc'
-        )
+        product = ProductFactory.create()
         request = self.factory.get('/wishlist_get/')
 
         middleware = SessionMiddleware(request)
@@ -158,12 +136,7 @@ class TestWishlistGetView(TestCase):
             username = 'gvard',
             password = 'Bk7^31&3LDXt',
         )
-        product = Product.objects.create(
-            name='test product', 
-            price = 10.5,
-            description = 'product for testing',
-            product_type = 'Misc'
-        )
+        product = ProductFactory.create()
         product.users_wishlist.add(user)
         user.save()
         product.save()
