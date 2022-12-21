@@ -15,14 +15,13 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.test import Client
 from django.contrib import auth
 
-firefox_dev_binary = FirefoxBinary('C:\Program Files\Firefox Developer Edition\\firefox.exe')
-driver_path = 'C:\Dev\django_dev_1\geckodriver.exe'
+import test.selenium_setup as setup
 
 class TestRegistrationPage(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium = WebDriver(firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH), executable_path=setup.DRIVER_PATH)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
@@ -64,7 +63,7 @@ class TestLoginPage(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium = WebDriver(firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH), executable_path=setup.DRIVER_PATH)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
@@ -102,7 +101,7 @@ class TestProfilePage(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium = WebDriver(firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH), executable_path=setup.DRIVER_PATH)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
@@ -144,7 +143,7 @@ class TestPasswordChangePage(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium = WebDriver(firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH), executable_path=setup.DRIVER_PATH)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
@@ -178,7 +177,7 @@ class TestPasswordResetPages(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium = WebDriver(firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH), executable_path=setup.DRIVER_PATH)
         cls.selenium.implicitly_wait(10)
 
     @classmethod

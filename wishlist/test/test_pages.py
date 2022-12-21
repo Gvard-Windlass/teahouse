@@ -10,14 +10,13 @@ from seleniumlogin import force_login
 from catalogue.models import Tea
 from test.factories import TeaFactory
 
-firefox_dev_binary = FirefoxBinary('C:\Program Files\Firefox Developer Edition\\firefox.exe')
-driver_path = 'C:\Dev\django_dev_1\geckodriver.exe'
+import test.selenium_setup as setup
 
 class TestWishlistToggle(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium = WebDriver(firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH), executable_path=setup.DRIVER_PATH)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
@@ -40,7 +39,7 @@ class TestWishlistPage(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver(firefox_binary=firefox_dev_binary, executable_path=driver_path)
+        cls.selenium = WebDriver(firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH), executable_path=setup.DRIVER_PATH)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
