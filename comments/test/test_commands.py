@@ -4,20 +4,12 @@ from io import StringIO
 from contextlib import redirect_stdout
 from catalogue.models import Tea
 from comments.models import Comment
+from test.factories import TeaFactory
 
 
 class TestCSVLoader(TestCase):
     def setUp(self) -> None:
-        Tea.objects.create(
-            name='Черный чай №1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        TeaFactory.create(name='Черный чай №1')
 
 
     def test_command_output(self):

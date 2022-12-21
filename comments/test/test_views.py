@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from catalogue.models import Tea
+from test.factories import TeaFactory
 from comments.models import Comment
 from django.urls import reverse
 
@@ -8,16 +9,7 @@ class TestCommentCreateView(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
-        self.product = Tea.objects.create(
-            name='test tea 1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        self.product = TeaFactory.create()
 
     
     def test_comment_create_view(self):

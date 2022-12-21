@@ -1,6 +1,7 @@
 from django.test import TestCase
 
 from catalogue.models import *
+from test.factories import TeaFactory
 
 class TestProductModel(TestCase):
     def test_create_product(self):
@@ -15,15 +16,7 @@ class TestProductModel(TestCase):
 
 class TestTeaModel(TestCase):
     def test_create_tea(self):
-        tea = Tea.objects.create(
-            name='test tea',
-            price = 300,
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        tea = TeaFactory.create()
         self.assertIsInstance(tea, Tea)
 
 

@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from seleniumlogin import force_login
 
 from catalogue.models import Tea
+from test.factories import TeaFactory
 
 firefox_dev_binary = FirefoxBinary('C:\Program Files\Firefox Developer Edition\\firefox.exe')
 driver_path = 'C:\Dev\django_dev_1\geckodriver.exe'
@@ -26,16 +27,7 @@ class TestWishlistToggle(StaticLiveServerTestCase):
 
     
     def test_wishlist_toggle(self):
-        Tea.objects.create(
-            name='test tea 1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        TeaFactory.create()
 
         self.selenium.get(f'{self.live_server_url}/product_catalogue/')
         wishlist_button = self.selenium.find_element(By.CLASS_NAME, 'btnWishlist')
@@ -58,16 +50,7 @@ class TestWishlistPage(StaticLiveServerTestCase):
 
     
     def test_wishlist_page_anonymous(self):
-        Tea.objects.create(
-            name='test tea 1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        TeaFactory.create()
 
         self.selenium.get(f'{self.live_server_url}/product_catalogue/')
         wishlist_button = self.selenium.find_element(By.CLASS_NAME, 'btnWishlist')
@@ -80,16 +63,7 @@ class TestWishlistPage(StaticLiveServerTestCase):
 
 
     def test_wishlist_page_authenticated(self):
-        Tea.objects.create(
-            name='test tea 1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        TeaFactory.create()
 
         user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
         force_login(user, self.selenium, self.live_server_url)

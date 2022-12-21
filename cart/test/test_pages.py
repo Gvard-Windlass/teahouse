@@ -11,6 +11,7 @@ from seleniumlogin import force_login
 
 from catalogue.models import Tea
 from cart.models import Cart
+from test.factories import TeaFactory
 
 firefox_dev_binary = FirefoxBinary('C:\Program Files\Firefox Developer Edition\\firefox.exe')
 driver_path = 'C:\Dev\django_dev_1\geckodriver.exe'
@@ -30,16 +31,7 @@ class TestCartAddPage(StaticLiveServerTestCase):
 
     def test_cart_add_page(self):
         user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
-        Tea.objects.create(
-            name='test tea 1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        TeaFactory.create()
         force_login(user, self.selenium, self.live_server_url)
 
         self.selenium.get(f'{self.live_server_url}/tea/1/')
@@ -63,16 +55,7 @@ class TestCartPage(StaticLiveServerTestCase):
 
     
     def setUp(self) -> None:
-        tea = Tea.objects.create(
-            name='test tea 1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        tea = TeaFactory.create()
         self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
         Cart.objects.create(product=tea, user=self.user, amount=10)
 

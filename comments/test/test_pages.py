@@ -11,6 +11,7 @@ from selenium.webdriver.common.keys import Keys
 from seleniumlogin import force_login
 
 from catalogue.models import Tea
+from test.factories import TeaFactory
 from comments.models import Comment
 
 firefox_dev_binary = FirefoxBinary('C:\Program Files\Firefox Developer Edition\\firefox.exe')
@@ -30,26 +31,8 @@ class TestCommentsDisplay(StaticLiveServerTestCase):
 
 
     def test_comments_display(self):
-        product = Tea.objects.create(
-            name='test tea 1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
-        product2 = Tea.objects.create(
-            name='test tea 2',
-            price = 200.5,
-            image = 'product_images/black2.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2021,
-            amount = 50
-        )
+        product = TeaFactory.create()
+        product2 = TeaFactory.create()
 
         alice = User.objects.create_user(username='alice')
         bob = User.objects.create_user(username='bob')
@@ -97,16 +80,7 @@ class TestAddComment(StaticLiveServerTestCase):
         super().tearDownClass()
 
     def setUp(self) -> None:
-        self.tea = Tea.objects.create(
-            name='test tea 1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        self.tea = TeaFactory.create()
         self.user = User.objects.create_user(username='gvard', password='Bk7^31&3LDXt')
 
 

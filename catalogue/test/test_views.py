@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from catalogue.models import Tea
-
+from test.factories import TeaFactory
 
 class TestTeaListView(TestCase):
     def setUp(self):
@@ -23,16 +23,7 @@ class TestTeaDetailView(TestCase):
 
     
     def test_tea_detail_view(self):
-        Tea.objects.create(
-            name='test tea 1',
-            price = 300,
-            image = 'product_images/black1.jpg',
-            description = 'tea for testing',
-            product_type = 'Tea',
-            tea_type = 'Black',
-            tea_year = 2022,
-            amount = 300
-        )
+        TeaFactory.create()
 
         response = self.client.get('/tea/1/')
         self.assertEqual(response.status_code, 200)
