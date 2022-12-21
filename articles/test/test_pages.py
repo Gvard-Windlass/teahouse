@@ -5,6 +5,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 from articles.models import Article
+from test.factories import ArticleFactory
 
 import test.selenium_setup as setup
 
@@ -22,18 +23,7 @@ class TestArticlesPage(StaticLiveServerTestCase):
 
 
     def test_articles_page(self):
-        Article.objects.create(
-            author = 'alice',
-            title = 'test article 1',
-            summary = 'test summary 1',
-            body = 'test body 1'
-        )
-        Article.objects.create(
-            author = 'bob',
-            title = 'test article 2',
-            summary = 'test summary 2',
-            body = 'test body 2'
-        )
+        ArticleFactory.create_batch(2)
 
         self.selenium.get(f'{self.live_server_url}/articles/')
         articles = self.selenium.find_elements(By.CLASS_NAME, 'card')
@@ -55,12 +45,7 @@ class TestArticleDetailsPage(StaticLiveServerTestCase):
 
 
     def test_article_details_page(self):
-        article = Article.objects.create(
-            author = 'alice',
-            title = 'test article',
-            summary = 'test summary',
-            body = 'test body'
-        )
+        article = ArticleFactory.create(body='test body')
 
         self.selenium.get(f'{self.live_server_url}/articles/{article.id}/')
         

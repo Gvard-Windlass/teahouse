@@ -16,3 +16,14 @@ class TeaFactory(factory.django.DjangoModelFactory):
     product_type= 'Tea'
     tea_type = 'Black'
     tea_year = factory.Faker('year')
+
+
+class ArticleFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = 'articles.Article'
+        django_get_or_create = ('title',)
+
+    author = factory.Faker('random_element', elements=('alice', 'bob', 'peter'))
+    title = factory.Sequence(lambda n: 'test article %d' % n)
+    summary = factory.Faker('paragraph', nb_sentences=5)
+    body = factory.Faker('paragraph', nb_sentences=20)
