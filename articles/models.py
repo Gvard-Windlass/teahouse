@@ -7,3 +7,6 @@ class Article(models.Model):
     summary = models.TextField()
     body = models.TextField()
     publication_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.title} | by {self.author}'
