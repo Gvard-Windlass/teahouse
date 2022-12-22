@@ -75,6 +75,9 @@ class Product(models.Model):
     utensil_type = models.CharField(choices=UtensilType.choices, max_length=20, null=True)
     utensil_material = models.CharField(choices = UtensilMaterial.choices, max_length=20, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class TeaManager(models.Manager):
     def get_queryset(self):
