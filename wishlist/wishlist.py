@@ -4,7 +4,7 @@ from django.http import HttpRequest
 from django.conf import settings
 
 
-class Wishlist:
+class WishlistService:
     def __init__(self, request: HttpRequest):
         self.session = request.session
         wishlist = self.session.get(settings.WISHLIST_SESSION_ID)
@@ -41,7 +41,7 @@ class Wishlist:
 
     def get_ids(self):
         if self.user.is_authenticated:
-            return list(self.user.wishlist.all().values_list('id', flat=True))
+            return list(self.user.users_wishlist.all().values_list('id', flat=True))
         else:
             return [int(x) for x in self.wishlist.keys()]
 

@@ -4,7 +4,7 @@ from django.views import View
 from django.views.generic.list import ListView
 import json
 
-from .wishlist import Wishlist
+from .wishlist import WishlistService
 from catalogue.models import Product
 
 
@@ -13,7 +13,7 @@ class WishlistAddView(View):
         product_id = int(json.loads(request.body).get('productid'))
         product = get_object_or_404(Product, pk=product_id)
 
-        wishlist = Wishlist(request)
+        wishlist = WishlistService(request)
         wishlist.add(product)
 
         return JsonResponse({})
@@ -24,7 +24,7 @@ class WishlistRemoveView(View):
         product_id = int(json.loads(request.body).get('productid'))
         product = get_object_or_404(Product, pk=product_id)
 
-        wishlist = Wishlist(request)
+        wishlist = WishlistService(request)
         wishlist.remove(product)
         
         return JsonResponse({})
@@ -32,7 +32,7 @@ class WishlistRemoveView(View):
 
 class WishlistGetView(View):
     def get(self, request, *args, **kwargs):
-        wishlist = Wishlist(request)
+        wishlist = WishlistService(request)
 
         return JsonResponse({'wishlist': wishlist.get_ids()})
 
@@ -43,7 +43,7 @@ class WishlistListView(ListView):
     template_name = 'catalogue/products.html'
 
     def get_queryset(self):
-        wishlist = Wishlist(self.request)
+        wishlist = WishlistService(self.request)
         return wishlist.get_products()
 
     def get_context_data(self, **kwargs):

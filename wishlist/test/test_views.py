@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import User, AnonymousUser
-from wishlist.wishlist import Wishlist
+from wishlist.wishlist import WishlistService
 from wishlist.views import WishlistAddView, WishlistRemoveView, WishlistGetView
 from catalogue.models import Product
 from test.factories import ProductFactory, UserFactory
@@ -31,7 +31,7 @@ class TestWishlistAddView(TestCase):
         request.user = AnonymousUser()
 
         response = WishlistAddView().post(request)
-        wishlist = Wishlist(request)
+        wishlist = WishlistService(request)
         
         self.assertEqual(response.status_code, 200)
         self.assertIn(1, wishlist.get_ids())
@@ -48,7 +48,7 @@ class TestWishlistAddView(TestCase):
             content_type='application/json'
         )
 
-        product_id = User.objects.get(id=1).wishlist.first().id
+        product_id = User.objects.get(id=1).users_wishlist.first().id
         self.assertEqual(response.status_code, 200)
         self.assertEqual(1, product_id)
 
@@ -74,7 +74,7 @@ class TestWishlistRemoveView(TestCase):
         request.session.save()
         request.user = AnonymousUser()
 
-        wishlist = Wishlist(request)
+        wishlist = WishlistService(request)
         wishlist.add(product)
         self.assertIn(1, wishlist.get_ids())
         
@@ -91,7 +91,7 @@ class TestWishlistRemoveView(TestCase):
         user.save()
         product.save()
 
-        self.assertTrue(user.wishlist.first().id, 1)
+        self.assertTrue(user.users_wishlist.first().id, 1)
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
 
         response = self.client.post(
@@ -101,7 +101,7 @@ class TestWishlistRemoveView(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(0, len(User.objects.get(id=1).wishlist.all()))
+        self.assertEqual(0, len(User.objects.get(id=1).users_wishlist.all()))
 
 
 class TestWishlistGetView(TestCase):
@@ -120,7 +120,7 @@ class TestWishlistGetView(TestCase):
         request.session.save()
         request.user = AnonymousUser()
 
-        wishlist = Wishlist(request)
+        wishlist = WishlistService(request)
         wishlist.add(product)
         self.assertIn(1, wishlist.get_ids())
 
@@ -138,7 +138,7 @@ class TestWishlistGetView(TestCase):
         user.save()
         product.save()
 
-        self.assertTrue(user.wishlist.first().id, 1)
+        self.assertTrue(user.users_wishlist.first().id, 1)
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
 
         response = self.client.get(self.url)

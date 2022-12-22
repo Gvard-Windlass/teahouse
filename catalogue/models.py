@@ -42,7 +42,7 @@ class Product(models.Model):
     amount = models.PositiveIntegerField(null=True)
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
     description = models.TextField()
-    users_wishlist = models.ManyToManyField(User, blank=True, related_name='wishlist')
+    users_wishlist = models.ManyToManyField(User, blank=True, through='wishlist.Wishlist', related_name='users_wishlist')
     users_cart = models.ManyToManyField(User, blank=True, through='cart.Cart')
     objects = ProductManager()
 
