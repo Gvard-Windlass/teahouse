@@ -55,3 +55,6 @@ class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.PositiveIntegerField()
     objects = CartManager()
+
+    def __str__(self):
+        return f'{self.amount} of {self.product} by {self.user}'
