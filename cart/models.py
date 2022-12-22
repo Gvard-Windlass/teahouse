@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 from catalogue.models import Product
 
 
 class CartManager(models.Manager):
     def add_to_cart(self, product_id: int, user: User, amount: int, incremental=False):
-        product = Product.objects.get(pk=product_id)
+        product = get_object_or_404(Product, pk=product_id)
         current_cart = self.get_user_cart_ids(user)
         
         if product.id in current_cart:
@@ -21,7 +22,7 @@ class CartManager(models.Manager):
 
 
     def remove_from_cart(self, product_id: int, user: User):
-        product = Product.objects.get(pk=product_id)
+        product = get_object_or_404(Product, pk=product_id)
         cart_item = self.get_cart_item(user, product)
         if cart_item:
             cart_item.delete()

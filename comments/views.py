@@ -1,6 +1,6 @@
 import json
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
@@ -15,7 +15,7 @@ class CommentsCreateView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         comment_form = CommentForm(request.POST)
-        product = Product.objects.get(pk=kwargs.get('product_id'))
+        product = get_object_or_404(Product, pk=kwargs.get('product_id'))
         next_page = request.POST.get('next_page')
         reply_target = kwargs.get('comment_id')
         
