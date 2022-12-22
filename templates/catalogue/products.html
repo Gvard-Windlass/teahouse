@@ -4,6 +4,11 @@
 
 {% block content %}
     <h3>{% translate products_title %}</h3>
+    {% if not products %}
+        <div class="text-center mt-5">
+            <em class="fs-5">Пусто</em>
+        </div>
+    {% endif %}
     <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-2" id="products">
         {% for product in products %}
             {% if product.amount %}
