@@ -137,8 +137,9 @@ class TestProfilePage(StaticLiveServerTestCase):
         email_input.send_keys('test@example.com')
         submit_button.send_keys(Keys.RETURN)
 
-        current_url = self.selenium.current_url
-        WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
+        WebDriverWait(self.selenium, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'alert')))
+        alert = self.selenium.find_element(By.CLASS_NAME, 'alert')
+        self.assertIn('alert-success', alert.get_attribute('class'))
 
         user = User.objects.get(username='gvard')
         self.assertEqual(user.email, 'test@example.com')
