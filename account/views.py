@@ -21,6 +21,7 @@ class RegistrationView(FormView):
             messages.success(request, 'Регистрация прошла успешно')
             return redirect('home')
         else:
+            messages.success(request, 'Обнаружены ошибки')
             return render(request, self.template_name)
 
 
@@ -42,7 +43,7 @@ class ProfileView(LoginRequiredMixin, View):
         if user_form.is_valid() and customer_form.is_valid():
             user_form.save()
             messages.success(request, 'Информация обновлена')
-            return redirect('home')
+            return redirect('profile')
         else:
             messages.error(request, 'Обнаружены ошибки')
             return redirect('profile')
