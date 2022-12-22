@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+from django.urls import reverse
 
 from test.factories import ArticleFactory
 
@@ -7,7 +8,8 @@ class TestArticleListView(TestCase):
         self.client = Client()
 
     def test_article_list_view(self):
-        response = self.client.get('/articles/')
+        url = reverse('articles')
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
 
@@ -17,10 +19,12 @@ class TestArticleDetailView(TestCase):
 
     def test_article_exist_detail(self):
         ArticleFactory.create()
-        response = self.client.get('/articles/1/')
+        url = reverse('article_detail', args=[1])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     
     def test_article_not_exist_detail(self):
-        response = self.client.get('/articles/2/')
+        url = reverse('article_detail', args=[2])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 404)

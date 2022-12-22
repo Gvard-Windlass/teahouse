@@ -1,4 +1,5 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.urls import reverse
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.webdriver import WebDriver
@@ -64,7 +65,8 @@ class TestProductsDisplay(StaticLiveServerTestCase):
     def test_tea_display(self):
         TeaFactory.create_batch(2)
 
-        self.selenium.get(f'{self.live_server_url}/product_catalogue/')
+        url = reverse('products_all')
+        self.selenium.get(self.live_server_url+url)
         tea_products = self.selenium.find_elements(By.CLASS_NAME, 'card')
         self.assertEqual(len(tea_products), 2)
 
@@ -85,7 +87,8 @@ class TestProductDetailPage(StaticLiveServerTestCase):
     def test_tea_detail_page(self):
         tea = TeaFactory.create()
 
-        self.selenium.get(f'{self.live_server_url}/tea/{tea.id}/')
+        url = reverse('tea_detail', args=[tea.id])
+        self.selenium.get(self.live_server_url+url)
         amount_imput = self.selenium.find_element(By.CSS_SELECTOR, 'input[name=amount]')
         total_display = self.selenium.find_element(By.ID, 'total')
         initial_total = total_display.text

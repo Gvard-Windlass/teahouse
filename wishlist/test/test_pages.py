@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from django.test import Client
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 from seleniumlogin import force_login
@@ -28,7 +29,8 @@ class TestWishlistToggle(StaticLiveServerTestCase):
     def test_wishlist_toggle(self):
         TeaFactory.create()
 
-        self.selenium.get(f'{self.live_server_url}/product_catalogue/')
+        url = reverse('products_all')
+        self.selenium.get(self.live_server_url+url)
         wishlist_button = self.selenium.find_element(By.CLASS_NAME, 'btnWishlist')
         self.assertEqual(wishlist_button.text, '♡')
         wishlist_button.click()
@@ -51,12 +53,14 @@ class TestWishlistPage(StaticLiveServerTestCase):
     def test_wishlist_page_anonymous(self):
         TeaFactory.create()
 
-        self.selenium.get(f'{self.live_server_url}/product_catalogue/')
+        url = reverse('products_all')
+        self.selenium.get(self.live_server_url+url)
         wishlist_button = self.selenium.find_element(By.CLASS_NAME, 'btnWishlist')
         self.assertEqual(wishlist_button.text, '♡')
         wishlist_button.click()
 
-        self.selenium.get(f'{self.live_server_url}/wishlist_display/')
+        url = reverse('wishlist_display')
+        self.selenium.get(self.live_server_url+url)
         tea_products = self.selenium.find_elements(By.CLASS_NAME, 'card')
         self.assertEqual(len(tea_products), 1)
 
@@ -67,11 +71,13 @@ class TestWishlistPage(StaticLiveServerTestCase):
         user = UserFactory.create()
         force_login(user, self.selenium, self.live_server_url)
         
-        self.selenium.get(f'{self.live_server_url}/product_catalogue/')
+        url = reverse('products_all')
+        self.selenium.get(self.live_server_url+url)
         wishlist_button = self.selenium.find_element(By.CLASS_NAME, 'btnWishlist')
         self.assertEqual(wishlist_button.text, '♡')
         wishlist_button.click()
 
-        self.selenium.get(f'{self.live_server_url}/wishlist_display/')
+        url = reverse('wishlist_display')
+        self.selenium.get(self.live_server_url+url)
         tea_products = self.selenium.find_elements(By.CLASS_NAME, 'card')
         self.assertEqual(len(tea_products), 1)

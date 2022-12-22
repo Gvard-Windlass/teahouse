@@ -1,11 +1,12 @@
 from django.test import TestCase, Client
+from django.urls import reverse
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import User, AnonymousUser
 from wishlist.wishlist import Wishlist
 from wishlist.views import WishlistAddView, WishlistRemoveView, WishlistGetView
 from catalogue.models import Product
-from test.factories import ProductFactory
+from test.factories import ProductFactory, UserFactory
 import json
 
 
@@ -13,11 +14,13 @@ class TestWishlistAddView(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.client = Client()
+        self.url = reverse('wishlist_add')
 
     def test_wishlist_add_session(self):
         ProductFactory.create()
+
         request = self.factory.post(
-            '/wishlist_add/', 
+            self.url, 
             data = {'productid': '1'},
             content_type='application/json'
         )
@@ -35,14 +38,12 @@ class TestWishlistAddView(TestCase):
 
     
     def test_wishlist_add_authenticated(self):
-        User.objects.create_user(
-            username = 'gvard',
-            password = 'Bk7^31&3LDXt',
-        )
+        UserFactory.create()
         ProductFactory.create()
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
         
-        response = self.client.post('/wishlist_add/', 
+        response = self.client.post(
+            self.url, 
             data = {'productid': '1'},
             content_type='application/json'
         )
@@ -56,13 +57,14 @@ class TestWishlistRemoveView(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.client = Client()
+        self.url = reverse('wishlist_remove')
 
 
     def test_wishlist_remove_session(self):
         product = ProductFactory.create()
 
         request = self.factory.post(
-            '/wishlist_remove/', 
+            self.url, 
             data = {'productid': '1'},
             content_type='application/json'
         )
@@ -82,10 +84,7 @@ class TestWishlistRemoveView(TestCase):
 
 
     def test_wishlist_remove_authenticated(self):
-        user = User.objects.create_user(
-            username = 'gvard',
-            password = 'Bk7^31&3LDXt',
-        )
+        user = UserFactory.create()
         product = ProductFactory.create()
 
         product.users_wishlist.add(user)
@@ -96,7 +95,7 @@ class TestWishlistRemoveView(TestCase):
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
 
         response = self.client.post(
-            '/wishlist_remove/', 
+            self.url, 
             data = {'productid': '1'},
             content_type='application/json'
         )
@@ -109,11 +108,12 @@ class TestWishlistGetView(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.client = Client()
+        self.url = reverse('wishlist_get')
 
     
     def test_wishlist_get_session(self):
         product = ProductFactory.create()
-        request = self.factory.get('/wishlist_get/')
+        request = self.factory.get(self.url)
 
         middleware = SessionMiddleware(request)
         middleware.process_request(request)
@@ -132,10 +132,7 @@ class TestWishlistGetView(TestCase):
 
 
     def test_wishlist_get_authenticated(self):
-        user = User.objects.create_user(
-            username = 'gvard',
-            password = 'Bk7^31&3LDXt',
-        )
+        user = UserFactory.create()
         product = ProductFactory.create()
         product.users_wishlist.add(user)
         user.save()
@@ -144,7 +141,7 @@ class TestWishlistGetView(TestCase):
         self.assertTrue(user.wishlist.first().id, 1)
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
 
-        response = self.client.get('/wishlist_get/')
+        response = self.client.get(self.url)
         response_data = json.loads(response.content)['wishlist']
         
         self.assertEqual(response.status_code, 200)
@@ -154,19 +151,17 @@ class TestWishlistGetView(TestCase):
 class TestWishlistDisplayView(TestCase):
     def setUp(self):
         self.client = Client()
+        self.url = reverse('wishlist_display')
 
     
     def test_wishlist_display_anonymous(self):
-        response = self.client.get('/wishlist_display/')
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
 
     def test_wishlist_display_authenticated(self):
-        user = User.objects.create_user(
-            username = 'gvard',
-            password = 'Bk7^31&3LDXt',
-        )
+        UserFactory.create()
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
 
-        response = self.client.get('/wishlist_display/')
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)

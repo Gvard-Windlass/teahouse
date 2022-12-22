@@ -14,6 +14,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User, AnonymousUser
 from django.test import Client
 from django.contrib import auth
+from django.urls import reverse
 
 from test.factories import UserFactory
 import test.selenium_setup as setup
@@ -32,7 +33,8 @@ class TestRegistrationPage(StaticLiveServerTestCase):
 
     
     def test_registration_success(self):
-        self.selenium.get(f'{self.live_server_url}/register')
+        url = reverse('register')
+        self.selenium.get(self.live_server_url+url)
         username_input = self.selenium.find_element(By.ID, 'id_username')
         first_name_input = self.selenium.find_element(By.ID, 'id_first_name')
         last_name_input = self.selenium.find_element(By.ID, 'id_last_name')
@@ -82,7 +84,8 @@ class TestLoginPage(StaticLiveServerTestCase):
         # despite template react accordingly in screenshots, thus, this line is likely redundant
         self.assertIsInstance(auth.get_user(self.client), AnonymousUser)
 
-        self.selenium.get(f'{self.live_server_url}/login')
+        url = reverse('login')
+        self.selenium.get(self.live_server_url+url)
         username_input = self.selenium.find_element(By.ID, 'id_username')
         password_input = self.selenium.find_element(By.ID, 'id_password')
         submit_button = self.selenium.find_element(By.ID, 'auth-submit')
@@ -118,7 +121,8 @@ class TestProfilePage(StaticLiveServerTestCase):
         force_login(user, self.selenium, self.live_server_url)
 
         # test profile
-        self.selenium.get(f'{self.live_server_url}/profile')
+        url = reverse('profile')
+        self.selenium.get(self.live_server_url+url)
         
         username_input = self.selenium.find_element(By.ID, 'id_username')
         self.assertEqual(username_input.get_attribute('value'), 'gvard')
@@ -158,7 +162,8 @@ class TestPasswordChangePage(StaticLiveServerTestCase):
         force_login(user, self.selenium, self.live_server_url)
 
         # test password change
-        self.selenium.get(f'{self.live_server_url}/profile/password')
+        url = reverse('password_change')
+        self.selenium.get(self.live_server_url+url)
         old_password_input = self.selenium.find_element(By.ID, 'id_old_password')
         new_password1_input = self.selenium.find_element(By.ID, 'id_new_password1')
         new_password2_input = self.selenium.find_element(By.ID, 'id_new_password2')
@@ -191,7 +196,8 @@ class TestPasswordResetPages(StaticLiveServerTestCase):
         UserFactory.create()
         
         # ask for password reset
-        self.selenium.get(f'{self.live_server_url}/password_reset/')
+        url = reverse('password_reset')
+        self.selenium.get(self.live_server_url+url)
 
         reset_email = self.selenium.find_element(By.ID, 'id_email')
         reset_butotn = self.selenium.find_element(By.ID, 'reset-submit')
@@ -223,7 +229,8 @@ class TestPasswordResetPages(StaticLiveServerTestCase):
         self.assertEqual(self.selenium.current_url, f'{self.live_server_url}/password_reset_complete/')
 
         # login with new password
-        self.selenium.get(f'{self.live_server_url}/login')
+        url = reverse('login')
+        self.selenium.get(self.live_server_url+url)
         username_input = self.selenium.find_element(By.ID, 'id_username')
         password_input = self.selenium.find_element(By.ID, 'id_password')
         submit_button = self.selenium.find_element(By.ID, 'auth-submit')

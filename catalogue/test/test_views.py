@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+from django.urls import reverse
 from catalogue.models import Tea
 from test.factories import TeaFactory, UtensilFactory
 
@@ -8,12 +9,14 @@ class TestTeaListView(TestCase):
 
     
     def test_tea_list_view_specific(self):
-        response = self.client.get('/product_catalogue/Tea/Black/')
+        url = reverse('product_by_type', args=['Tea', 'Black'])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
 
     def test_tea_list_view_all(self):
-        response = self.client.get('/product_catalogue/Tea/')
+        url = reverse('product_by_section', args=['Tea'])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
 
@@ -23,12 +26,14 @@ class TestUtensilListView(TestCase):
 
     
     def test_utensil_list_view_specific(self):
-        response = self.client.get('/product_catalogue/Utensil/Cup/')
+        url = reverse('product_by_type', args=['Utensil', 'Cup'])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
 
     def test_utensil_list_view_all(self):
-        response = self.client.get('/product_catalogue/Utensil/')
+        url = reverse('product_by_section', args=['Utensil'])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
 
@@ -39,12 +44,14 @@ class TestTeaDetailView(TestCase):
     
     def test_tea_exist_detail_view(self):
         TeaFactory.create()
-        response = self.client.get('/tea/1/')
+        url = reverse('tea_detail', args=[1])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     
     def test_tea_not_exist_detail_view(self):
-        response = self.client.get('/tea/2/')
+        url = reverse('tea_detail', args=[2])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
 
@@ -55,12 +62,14 @@ class TestUtensilDetailView(TestCase):
     
     def test_utensil_exist_detail_view(self):
         UtensilFactory.create()
-        response = self.client.get('/utensil/1/')
+        url = reverse('utensil_detail', args=[1])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     
     def test_utensil_not_exist_detail_view(self):
-        response = self.client.get('/utensil/2/')
+        url = reverse('utensil_detail', args=[2])
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
 
@@ -70,5 +79,6 @@ class TestProductSearchView(TestCase):
 
     
     def test_product_search_view(self):
-        response = self.client.get('/product_search/?q=tea')
+        url = reverse('product_search')
+        response = self.client.get(url, data={'q': 'tea'})
         self.assertEqual(response.status_code, 200)

@@ -1,5 +1,6 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.by import By
+from django.urls import reverse
 from django.contrib.auth.models import User
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.webdriver import WebDriver
@@ -58,7 +59,8 @@ class TestCommentsDisplay(StaticLiveServerTestCase):
         )
 
         # selenium retains pk increase between different classes?
-        self.selenium.get(f'{self.live_server_url}/tea/{product.pk}/')
+        url = reverse('tea_detail', args=[product.id])
+        self.selenium.get(self.live_server_url+url)
         comments = self.selenium.find_elements(By.CLASS_NAME, 'card')
         replies = self.selenium.find_elements(By.CSS_SELECTOR, '.replies .card')
 
@@ -86,7 +88,8 @@ class TestAddComment(StaticLiveServerTestCase):
     def test_comment_post_success(self):
         force_login(self.user, self.selenium, self.live_server_url)
 
-        self.selenium.get(f'{self.live_server_url}/tea/{self.tea.id}/')
+        url = reverse('tea_detail', args=[self.tea.id])
+        self.selenium.get(self.live_server_url+url)
 
         comment_input = self.selenium.find_element(By.ID, 'id_text')
         submit_button = self.selenium.find_element(By.ID, 'add-comment')
@@ -108,7 +111,8 @@ class TestAddComment(StaticLiveServerTestCase):
             text = 'comment by bob'
         )
         force_login(self.user, self.selenium, self.live_server_url)
-        self.selenium.get(f'{self.live_server_url}/tea/{self.tea.id}/')
+        url = reverse('tea_detail', args=[self.tea.id])
+        self.selenium.get(self.live_server_url+url)
 
         comment_card = self.selenium.find_element(By.CLASS_NAME, 'card')
         action = ActionChains(self.selenium)

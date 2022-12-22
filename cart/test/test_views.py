@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 from catalogue.models import Tea
@@ -20,7 +21,8 @@ class TestCartAddView(TestCase):
         }
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
         
-        response = self.client.post('/cart_add/', data=form_data)
+        url = reverse('cart_add')
+        response = self.client.post(url, data=form_data)
         self.assertEqual(response.status_code, 302)
 
         self.assertEqual(1, User.objects.first().cart_set.first().id)
@@ -35,7 +37,8 @@ class TestCartView(TestCase):
         UserFactory.create()
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
 
-        response = self.client.get('/cart/')
+        url = reverse('cart')
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
 
@@ -51,6 +54,7 @@ class TestCartRemoveView(TestCase):
 
         self.assertTrue(self.client.login(username='gvard', password='Bk7^31&3LDXt'))
         
-        response = self.client.post('/cart_remove/', data={'productId': 1})
+        url = reverse('cart_remove')
+        response = self.client.post(url, data={'productId': 1})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(Cart.objects.all()), 0)

@@ -1,5 +1,6 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User
+from django.urls import reverse
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.webdriver import WebDriver
@@ -33,7 +34,8 @@ class TestCartAddPage(StaticLiveServerTestCase):
         TeaFactory.create()
         force_login(user, self.selenium, self.live_server_url)
 
-        self.selenium.get(f'{self.live_server_url}/tea/1/')
+        url = reverse('tea_detail', args=[1])
+        self.selenium.get(self.live_server_url+url)
         cart_add_button = self.selenium.find_element(By.ID, 'cart-submit')
         cart_add_button.click()
 
@@ -57,11 +59,12 @@ class TestCartPage(StaticLiveServerTestCase):
         tea = TeaFactory.create()
         self.user = UserFactory.create()
         Cart.objects.create(product=tea, user=self.user, amount=10)
+        self.url = reverse('cart')
 
 
     def test_cart_page(self):
         force_login(self.user, self.selenium, self.live_server_url)
-        self.selenium.get(f'{self.live_server_url}/cart/')
+        self.selenium.get(self.live_server_url+self.url)
         
         rows = self.selenium.find_elements(By.TAG_NAME, 'tr')
         self.assertEqual(len(rows), 2)
@@ -69,7 +72,7 @@ class TestCartPage(StaticLiveServerTestCase):
     
     def test_cart_remove_page(self):
         force_login(self.user, self.selenium, self.live_server_url)
-        self.selenium.get(f'{self.live_server_url}/cart/')
+        self.selenium.get(self.live_server_url+self.url)
 
         remove_button = self.selenium.find_element(By.CSS_SELECTOR, 'td button:last-of-type')
         remove_button.click()
