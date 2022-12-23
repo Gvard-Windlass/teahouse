@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 
 from catalogue.models import Product
 
@@ -48,6 +49,16 @@ class CartManager(models.Manager):
             return cart_item.amount
         except:
             return
+
+    
+    def get_cart_total(self, user: User):
+        total = 0
+        for cart_item in user.cart_set.all():
+            if cart_item.product.product_type == 'Tea':
+                total += cart_item.amount*cart_item.product.price/settings.AMOUNT_STEP
+            else:
+                total += cart_item.amount*cart_item.product.price
+        return total
 
 
 class Cart(models.Model):

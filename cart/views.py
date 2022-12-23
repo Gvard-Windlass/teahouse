@@ -46,4 +46,5 @@ class CartView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         
         context['amount_step'] = settings.AMOUNT_STEP
+        context['total'] = Cart.objects.get_cart_total(self.request.user)
         return context
