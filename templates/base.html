@@ -17,7 +17,8 @@
             {% block navbar_left %}{% endblock navbar_left %}
             <a href="{% url 'home' %}" class="navbar-brand flex-grow-1">Teahouse</a>
             <form action="{% url 'product_search' %}" role="search" class="d-flex flex-grow-1" method="get">
-                <input name="q" type="search" class="form-control">
+                <input name="q" type="search" class="form-control"
+                {% if query %}value="{{ query }}"{% endif %}>
                 <button type="submit" class="btn btn-outline-dark mx-2">Поиск</button>
             </form>
             {% if not user.is_authenticated %}
