@@ -18,6 +18,7 @@
             {% endif %}
         {% endfor %}
     </div>
+    {% include 'catalogue/pagination.html' %}
     <script src="{% static 'wishlist.js' %}"></script>
     <script>
         getWishlist('{% url "wishlist_get" %}').then(res => {

@@ -18,7 +18,7 @@ class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'catalogue/products.html'
-
+    paginate_by = 10
 
     def get_queryset(self):
         product_section = self.kwargs.get('product')
@@ -40,6 +40,7 @@ class ProductSearchView(ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'catalogue/products.html'
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get('q')
@@ -51,6 +52,7 @@ class ProductSearchView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['products_title'] = 'Search results'
+        context['query'] = self.request.GET.get('q')
         return context
 
 
