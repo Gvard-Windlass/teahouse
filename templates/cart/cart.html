@@ -23,8 +23,18 @@
                             alt="изображение товара"
                             class="product-image-sm"></td>
                         <td>{{ cart_item.product.name }}</td>
-                        <td>{{ cart_item.amount }}</td>
-                        <td>{{ cart_item.product.price|amount_price:cart_item.amount }} ₽</td>
+                        <td>{{ cart_item.amount }}
+                            {% if cart_item.product.product_type == 'Tea' %}
+                                г.
+                            {% else %}
+                                шт.
+                            {% endif %}
+                        </td>
+                        {% if cart_item.product.product_type == 'Tea' %}
+                            <td>{{ cart_item.product.price|amount_price:cart_item.amount }} ₽</td>
+                        {% else %}
+                            <td>{{ cart_item.product.price|standard_price:cart_item.amount }} ₽</td>
+                        {% endif %}
                         <td class="text-end">
                             <form action="{% url 'cart_remove' %}" method="post">
                                 {% csrf_token %}
