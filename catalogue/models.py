@@ -1,19 +1,33 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
+from django.conf import settings
+
+
+class ProductQuerySet(models.QuerySet):
+    def exclude_out_of_stock(self):
+        return self.exclude(
+            Q(product_type='Tea') & Q(amount__lt=settings.AMOUNT_STEP) |
+            ~Q(product_type='Tea') & Q(amount__lt=1)
+        )
 
 
 class ProductManager(models.Manager):
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self._db)
+
     # TODO - need better names
-    def filter_products(self, product_section, product_type):
+    def filter_products(self, product_section, product_type, in_stock=True):
+        filters = []
         if product_section:
-            if product_type:
-                product_filters = {
-                    'product_type': product_section,
-                    f'{product_section.lower()}_type': product_type
-                }
-                return Product.objects.filter(**product_filters)
-            return Product.objects.filter(product_type=product_section)
-        return Product.objects.all()
+            filters.append(Q(product_type=product_section))
+        if product_type:
+            filters.append(Q(**{f'{product_section.lower()}_type': product_type}))
+        
+        if in_stock:
+            return Product.objects.filter(*filters).exclude_out_of_stock()
+
+        return Product.objects.filter(*filters)
 
     
     def get_product_title(self, product_section, product_type):

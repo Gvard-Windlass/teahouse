@@ -20,6 +20,14 @@ class TestTeaListView(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+    def test_tea_list_view_stock(self):
+        TeaFactory.create_batch(5, amount=1)
+        TeaFactory.create_batch(10)
+        url = reverse('product_by_section', args=['Tea'])
+        response = self.client.get(url)
+        self.assertEqual(len(response.context.get('object_list')), 10)
+
+
 class TestUtensilListView(TestCase):
     def setUp(self):
         self.client = Client()
@@ -35,6 +43,14 @@ class TestUtensilListView(TestCase):
         url = reverse('product_by_section', args=['Utensil'])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+
+
+    def test_utensil_list_view_stock(self):
+        UtensilFactory.create_batch(5, amount=0)
+        UtensilFactory.create_batch(10)
+        url = reverse('product_by_section', args=['Utensil'])
+        response = self.client.get(url)
+        self.assertEqual(len(response.context.get('object_list')), 10)
 
 
 class TestTeaDetailView(TestCase):

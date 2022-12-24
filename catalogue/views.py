@@ -53,7 +53,7 @@ class ProductSearchView(ListView):
         query = self.request.GET.get('q')
         # seems like sqlite are case-sensetive even with icontains for ru
         # https://docs.djangoproject.com/en/4.1/ref/databases/#substring-matching-and-case-sensitivity
-        products = Product.objects.filter(name__icontains=query)
+        products = Product.objects.filter(name__icontains=query).exclude_out_of_stock()
         return products
 
     def get_context_data(self, **kwargs):

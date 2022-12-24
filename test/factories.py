@@ -1,6 +1,7 @@
 import factory
 import factory.random
 from django.contrib.auth.models import User
+from django.conf import settings
 
 factory.random.reseed_random('teahouse')
 
@@ -39,7 +40,7 @@ class TeaFactory(factory.django.DjangoModelFactory):
     name = factory.Sequence(lambda n: 'test tea №%d' % n)
     price = factory.Faker('pyfloat', positive=True)
     image = factory.Sequence(lambda n: 'product_images/black%d.jpg' % n)
-    amount = factory.Faker('pyint')
+    amount = factory.Faker('pyint', min_value=settings.AMOUNT_STEP)
     description = factory.Faker('paragraph', nb_sentences=5)
     product_type= 'Tea'
     tea_type = 'Black'
@@ -54,7 +55,7 @@ class UtensilFactory(factory.django.DjangoModelFactory):
     name = factory.Sequence(lambda n: 'test utensil %d' % n)
     price = factory.Faker('pyfloat', positive=True)
     image = factory.Sequence(lambda n: 'product_images/cup%d.jpg' % n)
-    amount = factory.Faker('pyint')
+    amount = factory.Faker('pyint', min_value=1)
     description = factory.Faker('paragraph', nb_sentences=5)
     product_type= 'Utensil'
     utensil_type = 'Cup'
