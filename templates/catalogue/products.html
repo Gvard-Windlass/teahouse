@@ -11,30 +11,4 @@
     {% endif %}
     {% include 'catalogue/products_container.html' %}
     {% include 'catalogue/pagination.html' %}
-    <script src="{% static 'wishlist.js' %}"></script>
-    <script>
-        getWishlist('{% url "wishlist_get" %}').then(res => {
-            wishlist = res;
-        }).then(_ => {
-            updateWishlistButtons('.btnWishlist')
-            
-            const products = document.querySelector('#products');
-            products.addEventListener('click', function(event) {
-                if (event.target.tagName == 'BUTTON' && 
-                event.target.classList.contains('btnWishlist')) {
-                    event.preventDefault();
-                    productId = event.target.value;
-                    if (wishlist.includes(productId)) {
-                        updateWishlist('{% url "wishlist_remove" %}', '{{ csrf_token }}', productId);
-                        event.target.innerText = '♡';
-                        wishlist = wishlist.filter(item => item !== productId);
-                    } else {
-                        updateWishlist('{% url "wishlist_add" %}', '{{ csrf_token }}', productId);
-                        event.target.innerText = '♥';
-                        wishlist.push(productId);
-                    }
-                }
-            });
-        });
-    </script>
 {% endblock content %}
