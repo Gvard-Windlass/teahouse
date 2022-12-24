@@ -70,9 +70,9 @@ class TestProductsDisplay(StaticLiveServerTestCase):
         tea_products = self.selenium.find_elements(By.CLASS_NAME, 'card')
         self.assertEqual(len(tea_products), 2)
 
-    
+
     def test_pagination(self):
-        ProductFactory.create_batch(40)
+        TeaFactory.create_batch(40)
         
         url = reverse('products_all')
         self.selenium.get(self.live_server_url+url)
@@ -81,22 +81,22 @@ class TestProductsDisplay(StaticLiveServerTestCase):
 
         pg_next = self.selenium.find_element(By.ID, 'page-next')
         current_url = self.selenium.current_url
-        pg_next.click()
+        pg_next.send_keys(Keys.RETURN)
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
         
         pg_end = self.selenium.find_element(By.ID, 'page-end')
         current_url = self.selenium.current_url
-        pg_end.click()
+        pg_end.send_keys(Keys.RETURN)
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
 
         pg_prev = self.selenium.find_element(By.ID, 'page-prev')
         current_url = self.selenium.current_url
-        pg_prev.click()
+        pg_prev.send_keys(Keys.RETURN)
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
 
         pg_begin = self.selenium.find_element(By.ID, 'page-begin')
         current_url = self.selenium.current_url
-        pg_begin.click()
+        pg_begin.send_keys(Keys.RETURN)
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
 
 
@@ -140,22 +140,22 @@ class TestProductsSearch(StaticLiveServerTestCase):
 
         pg_next = self.selenium.find_element(By.ID, 'page-next')
         current_url = self.selenium.current_url
-        pg_next.click()
+        pg_next.send_keys(Keys.RETURN)
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
         
         pg_end = self.selenium.find_element(By.ID, 'page-end')
         current_url = self.selenium.current_url
-        pg_end.click()
+        pg_end.send_keys(Keys.RETURN)
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
 
         pg_prev = self.selenium.find_element(By.ID, 'page-prev')
         current_url = self.selenium.current_url
-        pg_prev.click()
+        pg_prev.send_keys(Keys.RETURN)
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
 
         pg_begin = self.selenium.find_element(By.ID, 'page-begin')
         current_url = self.selenium.current_url
-        pg_begin.click()
+        pg_begin.send_keys(Keys.RETURN)
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
 
 
