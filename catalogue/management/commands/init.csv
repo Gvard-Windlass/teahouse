@@ -1,15 +1,15 @@
 Content:Tea,,,,,,,
 product_type,name,price,image,description,tea_type,tea_year,amount
-Tea,Черный чай №1,91,black1.jpg,,Black,2018,464
-Tea,Черный чай №2,614,black2.jpg,,Black,2017,494
-Tea,Черный чай №3,163,black3.jpg,,Black,2016,659
-Tea,Черный чай №4,435,black4.jpg,,Black,2018,1954
-Tea,Черный чай №5,50,black5.jpg,,Black,2016,2179
-Tea,Черный чай №6,355,black6.jpg,,Black,2016,1216
-Tea,Черный чай №7,271,black7.jpg,,Black,2021,2494
-Tea,Черный чай №8,457,black8.jpg,,Black,2016,818
-Tea,Темный чай №1,322,dark1.jpg,,Dark,2020,401
-Tea,Темный чай №2,743,dark2.jpg,,Dark,2021,1240
+Tea,Красный чай №1,91,red1.jpg,,Red,2018,464
+Tea,Красный чай №2,614,red2.jpg,,Red,2017,494
+Tea,Красный чай №3,163,red3.jpg,,Red,2016,659
+Tea,Красный чай №4,435,red4.jpg,,Red,2018,1954
+Tea,Красный чай №5,50,red5.jpg,,Red,2016,2179
+Tea,Красный чай №6,355,red6.jpg,,Red,2016,1216
+Tea,Красный чай №7,271,red7.jpg,,Red,2021,2494
+Tea,Красный чай №8,457,red8.jpg,,Red,2016,818
+Tea,Черный чай №1,322,black1.jpg,,Black,2020,401
+Tea,Черный чай №2,743,black2.jpg,,Black,2021,1240
 Tea,Зеленый чай №1,169,green1.jpg,,Green,2021,2778
 Tea,Зеленый чай №2,403,green2.jpg,,Green,2019,1652
 Tea,Зеленый чай №3,330,green3.jpg,,Green,2016,2794

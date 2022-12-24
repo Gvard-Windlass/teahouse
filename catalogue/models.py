@@ -62,8 +62,8 @@ class Product(models.Model):
 
     # tea fields
     class TeaType(models.TextChoices):
+        Red = 'Red', 'Red'
         Black = 'Black', 'Black'
-        Dark = 'Dark', 'Dark'
         Green = 'Green', 'Green'
         Oolong = 'Oolong', 'Oolong'
         Puer = 'Puer', 'Puer'

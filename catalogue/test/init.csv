@@ -1,7 +1,7 @@
 Content:Tea,,,,,,,
 product_type,name,price,image,description,tea_type,tea_year,amount
-Tea,Черный чай №1,91,black1.jpg,,Black,2018,464
-Tea,Черный чай №2,614,black2.jpg,,Black,2017,494
+Tea,Красный чай №1,91,red1.jpg,,Red,2018,464
+Tea,Красный чай №2,614,red2.jpg,,Red,2017,494
 ,,,,,,,
 Content:Utensil,,,,,,,
 product_type,name,price,image,description,utensil_type,utensil_material,amount

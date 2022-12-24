@@ -11,7 +11,7 @@ class TestCSVLoader(TestCase):
         args = ['--csv', 'catalogue/test/init.csv']
         with out, redirect_stdout(out):
             call_command(command, args, stdout=out)
-            expected = 'Created Tea Черный чай №1\nCreated Tea Черный чай №2\nCreated Utensil Чашка №1\nCreated Utensil Чашка №2\nImport complete'
+            expected = 'Created Tea Красный чай №1\nCreated Tea Красный чай №2\nCreated Utensil Чашка №1\nCreated Utensil Чашка №2\nImport complete'
             self.assertIn(expected, out.getvalue())
 
 
@@ -22,7 +22,7 @@ class TestCSVLoader(TestCase):
         with out, redirect_stdout(out):
             call_command(command, args)
             image_path = Tea.objects.get(pk=1).image
-            self.assertEqual('product_images/black1.jpg', image_path)
+            self.assertEqual('product_images/red1.jpg', image_path)
 
 
     def test_image_folder_rel(self):
@@ -32,7 +32,7 @@ class TestCSVLoader(TestCase):
         with out, redirect_stdout(out):
             call_command(command, args)
             image_path = Tea.objects.get(pk=1).image
-            self.assertEqual('product_images/black1.jpg', image_path)
+            self.assertEqual('product_images/red1.jpg', image_path)
 
     
     def test_description_generation(self):

@@ -39,11 +39,11 @@ class TeaFactory(factory.django.DjangoModelFactory):
 
     name = factory.Sequence(lambda n: 'test tea №%d' % n)
     price = factory.Faker('pyfloat', positive=True)
-    image = factory.Sequence(lambda n: 'product_images/black%d.jpg' % n)
+    image = factory.Sequence(lambda n: 'product_images/red%d.jpg' % n)
     amount = factory.Faker('pyint', min_value=settings.AMOUNT_STEP)
     description = factory.Faker('paragraph', nb_sentences=5)
     product_type= 'Tea'
-    tea_type = 'Black'
+    tea_type = 'Red'
     tea_year = factory.Faker('year')
 
 
