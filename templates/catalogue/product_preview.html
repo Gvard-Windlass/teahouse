@@ -1,6 +1,13 @@
+{% load static %}
+
 {% with product.product_type|lower|add:'_detail' as detail_url %}
     <div class="card p-2">
-        <img src="{{ product.image.url }}" 
+        <img
+        {% if product.image %}
+            src="{{ product.image.url }}" 
+        {% else %}
+            src="{% static 'no-photo-available.png' %}"
+        {% endif %} 
             alt="изображение товара"
             class="card-image-top product-image mx-auto">
         <div class="card-body">

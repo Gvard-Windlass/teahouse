@@ -6,7 +6,13 @@
         <span class="fs-4">{{ product.name }}</span>
         <div class="row row-cols-2">
             <div class="col col-auto">
-                <img class="product-image d-block my-3" src="{{ product.image.url }}" alt="изображение товара">
+                <img class="product-image d-block my-3" 
+                {% if product.image %}
+                    src="{{ product.image.url }}" 
+                {% else %}
+                    src="{% static 'no-photo-available.png' %}"
+                {% endif %}  
+                alt="изображение товара">
             </div>
             {% if product.amount %}
                 {% block cart %}
