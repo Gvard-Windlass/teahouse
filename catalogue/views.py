@@ -1,17 +1,24 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.base import TemplateResponseMixin
+from django.views.generic.base import TemplateView, TemplateResponseMixin
 from django.shortcuts import render
 from django.conf import settings
 
+from articles.models import Article
 from .models import Product, Tea, Utensil
 from cart.models import Cart
 from comments.models import Comment
 from comments.forms import CommentForm
 
 
-def home(request):
-    return render(request, 'catalogue/home.html')
+class HomeView(TemplateView):
+    template_name = 'catalogue/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['latest_articles'] = Article.objects.all().order_by('-id')[:3]
+        context['products'] = Product.objects.all().order_by('-id')[:10]
+        return context
 
 
 class ProductListView(ListView):
