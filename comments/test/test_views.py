@@ -1,9 +1,7 @@
 from django.test import TestCase, Client
-from django.contrib.auth.models import User
 from catalogue.models import Tea
 from test.factories import TeaFactory, UserFactory
 from comments.models import Comment
-from django.urls import reverse
 
 
 class TestCommentCreateView(TestCase):

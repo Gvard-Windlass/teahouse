@@ -1,4 +1,3 @@
-from decimal import Decimal
 from catalogue.models import Product
 from django.http import HttpRequest
 from django.conf import settings

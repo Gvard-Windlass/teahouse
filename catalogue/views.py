@@ -1,7 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.base import TemplateView, TemplateResponseMixin
-from django.shortcuts import render
 from django.conf import settings
 
 from articles.models import Article

@@ -2,9 +2,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from django.test import Client
 from django.urls import reverse
-from django.contrib.auth.models import User
 
 from seleniumlogin import force_login
 

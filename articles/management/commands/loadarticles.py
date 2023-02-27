@@ -1,6 +1,6 @@
-import csv, lorem
+import csv
+import lorem
 
-from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
 
 from articles.models import Article

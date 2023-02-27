@@ -2,7 +2,7 @@ from django.views import View
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login, logout
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import CustomerRegistrationForm, UserForm, CustomerForm

@@ -1,5 +1,4 @@
 from django.test import TestCase, Client
-from django.contrib.auth.models import User
 
 from catalogue.models import Tea
 from cart.models import Cart
