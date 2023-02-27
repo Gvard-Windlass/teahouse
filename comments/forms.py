@@ -8,10 +8,6 @@ class CommentForm(ModelForm):
 
     class Meta:
         model = Comment
-        fields = ['text', 'next_page']
-        widgets = {
-            'text': Textarea(attrs={'cols': 60, 'rows': 3})
-        }
-        labels = {
-            'text': ''
-        }
+        fields = ["text", "next_page"]
+        widgets = {"text": Textarea(attrs={"cols": 60, "rows": 3})}
+        labels = {"text": ""}

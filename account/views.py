@@ -9,41 +9,41 @@ from .forms import CustomerRegistrationForm, UserForm, CustomerForm
 
 
 class RegistrationView(FormView):
-    template_name = 'account/register.html'
+    template_name = "account/register.html"
     form_class = CustomerRegistrationForm
-    success_url = 'home'
+    success_url = "home"
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, 'Регистрация прошла успешно')
-            return redirect('home')
+            messages.success(request, "Регистрация прошла успешно")
+            return redirect("home")
         else:
-            messages.success(request, 'Обнаружены ошибки')
+            messages.success(request, "Обнаружены ошибки")
             return render(request, self.template_name)
 
 
 class ProfileView(LoginRequiredMixin, View):
-    login_url = '/login'
+    login_url = "/login"
 
     def get(self, request, *args, **kwargs):
         user_form = UserForm(instance=request.user)
         customer_form = CustomerForm(instance=request.user.customer)
-        return render(request, 'account/profile.html', {
-            'user_form': user_form,
-            'customer_form': customer_form
-        })
-
+        return render(
+            request,
+            "account/profile.html",
+            {"user_form": user_form, "customer_form": customer_form},
+        )
 
     def post(self, request, *args, **kwargs):
         user_form = UserForm(request.POST, instance=request.user)
         customer_form = CustomerForm(request.POST, instance=request.user.customer)
         if user_form.is_valid() and customer_form.is_valid():
             user_form.save()
-            messages.success(request, 'Информация обновлена')
-            return redirect('profile')
+            messages.success(request, "Информация обновлена")
+            return redirect("profile")
         else:
-            messages.error(request, 'Обнаружены ошибки')
-            return redirect('profile')
+            messages.error(request, "Обнаружены ошибки")
+            return redirect("profile")

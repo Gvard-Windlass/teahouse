@@ -10,7 +10,7 @@ from catalogue.models import Product
 
 class WishlistAddView(View):
     def post(self, request: HttpRequest, *args, **kwargs):
-        product_id = int(json.loads(request.body).get('productid'))
+        product_id = int(json.loads(request.body).get("productid"))
         product = get_object_or_404(Product, pk=product_id)
 
         wishlist = WishlistService(request)
@@ -21,12 +21,12 @@ class WishlistAddView(View):
 
 class WishlistRemoveView(View):
     def post(self, request: HttpRequest, *args, **kwargs):
-        product_id = int(json.loads(request.body).get('productid'))
+        product_id = int(json.loads(request.body).get("productid"))
         product = get_object_or_404(Product, pk=product_id)
 
         wishlist = WishlistService(request)
         wishlist.remove(product)
-        
+
         return JsonResponse({})
 
 
@@ -34,13 +34,13 @@ class WishlistGetView(View):
     def get(self, request, *args, **kwargs):
         wishlist = WishlistService(request)
 
-        return JsonResponse({'wishlist': wishlist.get_ids()})
+        return JsonResponse({"wishlist": wishlist.get_ids()})
 
 
 class WishlistListView(ListView):
     model = Product
-    context_object_name = 'products'
-    template_name = 'catalogue/products.html'
+    context_object_name = "products"
+    template_name = "catalogue/products.html"
 
     def get_queryset(self):
         wishlist = WishlistService(self.request)
@@ -48,5 +48,5 @@ class WishlistListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products_title'] = 'Избранное'
+        context["products_title"] = "Избранное"
         return context
