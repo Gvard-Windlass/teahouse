@@ -1,5 +1,4 @@
 import csv
-import lorem
 
 from django.core.management.base import BaseCommand, CommandError
 

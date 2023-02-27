@@ -6,7 +6,6 @@ from django.views.generic.list import ListView
 from django.conf import settings
 
 from .models import Cart
-from catalogue.models import Product
 
 
 class AddToCartView(LoginRequiredMixin, View):

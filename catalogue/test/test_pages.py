@@ -8,8 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from catalogue.models import Tea
-from test.factories import TeaFactory, ProductFactory
+from test.factories import TeaFactory
 
 import test.selenium_setup as setup
 

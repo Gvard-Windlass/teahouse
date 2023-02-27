@@ -5,7 +5,6 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import User, AnonymousUser
 from wishlist.wishlist import WishlistService
 from wishlist.views import WishlistAddView, WishlistRemoveView, WishlistGetView
-from catalogue.models import Product
 from test.factories import ProductFactory, UserFactory
 import json
 

@@ -1,11 +1,9 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
-from articles.models import Article
 from test.factories import ArticleFactory
 
 import test.selenium_setup as setup

@@ -6,7 +6,6 @@ from django.urls import reverse
 
 from seleniumlogin import force_login
 
-from catalogue.models import Tea
 from test.factories import TeaFactory, UserFactory
 
 import test.selenium_setup as setup

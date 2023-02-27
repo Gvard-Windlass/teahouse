@@ -1,6 +1,5 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from catalogue.models import Tea
 from test.factories import TeaFactory, UtensilFactory
 
 

@@ -2,7 +2,6 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from catalogue.models import Tea
 from cart.models import Cart
 from test.factories import TeaFactory, UserFactory
 

@@ -2,7 +2,7 @@ import csv, lorem
 
 from django.core.management.base import BaseCommand, CommandError
 
-from catalogue.models import Product, Tea, Utensil
+from catalogue.models import Tea, Utensil
 
 
 # python manage.py loadcsv --csv catalogue/management/commands/init.csv --image_folder product_images --lorem_description True

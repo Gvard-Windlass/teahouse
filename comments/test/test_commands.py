@@ -2,7 +2,6 @@ from django.core.management import call_command
 from django.test import TestCase
 from io import StringIO
 from contextlib import redirect_stdout
-from catalogue.models import Tea
 from comments.models import Comment
 from test.factories import TeaFactory
 

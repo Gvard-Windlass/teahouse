@@ -11,7 +11,6 @@ from selenium.webdriver.common.keys import Keys
 
 from seleniumlogin import force_login
 
-from catalogue.models import Tea
 from test.factories import TeaFactory, UserFactory
 from comments.models import Comment
 

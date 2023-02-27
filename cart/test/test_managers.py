@@ -1,6 +1,5 @@
 from django.test import TestCase, Client
 
-from catalogue.models import Tea
 from cart.models import Cart
 from test.factories import TeaFactory, UserFactory
 

@@ -2,15 +2,11 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 from seleniumlogin import force_login
 
-from catalogue.models import Tea
 from cart.models import Cart
 from test.factories import TeaFactory, UserFactory
 

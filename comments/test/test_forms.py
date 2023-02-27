@@ -2,7 +2,6 @@ from django.test import TestCase
 
 from comments.forms import CommentForm
 from comments.models import Comment
-from catalogue.models import Product
 from test.factories import ProductFactory, UserFactory
 
 
