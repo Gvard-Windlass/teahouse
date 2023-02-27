@@ -189,7 +189,7 @@ class TestPasswordChangePage(StaticLiveServerTestCase):
         current_url = self.selenium.current_url
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
         self.selenium.save_screenshot(
-            "C:\Dev\django_dev_1\selenium_screenshots\\new.png"
+            "C:\\Dev\\django_dev_1\\selenium_screenshots\\new.png"
         )
 
 
