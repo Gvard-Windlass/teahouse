@@ -4,42 +4,40 @@ from io import StringIO
 from contextlib import redirect_stdout
 from catalogue.models import Tea
 
+
 class TestCSVLoader(TestCase):
     def test_command_output(self):
         out = StringIO()
-        command = 'loadcsv'
-        args = ['--csv', 'catalogue/test/init.csv']
+        command = "loadcsv"
+        args = ["--csv", "catalogue/test/init.csv"]
         with out, redirect_stdout(out):
             call_command(command, args, stdout=out)
-            expected = 'Created Tea Красный чай №1\nCreated Tea Красный чай №2\nCreated Utensil Чашка №1\nCreated Utensil Чашка №2\nImport complete'
+            expected = "Created Tea Красный чай №1\nCreated Tea Красный чай №2\nCreated Utensil Чашка №1\nCreated Utensil Чашка №2\nImport complete"
             self.assertIn(expected, out.getvalue())
-
 
     def test_image_folder_abs(self):
         out = StringIO()
-        command = 'loadcsv'
-        args = ['--csv', 'catalogue/test/init.csv', '--image_folder', 'product_images']
+        command = "loadcsv"
+        args = ["--csv", "catalogue/test/init.csv", "--image_folder", "product_images"]
         with out, redirect_stdout(out):
             call_command(command, args)
             image_path = Tea.objects.get(pk=1).image
-            self.assertEqual('product_images/red1.jpg', image_path)
-
+            self.assertEqual("product_images/red1.jpg", image_path)
 
     def test_image_folder_rel(self):
         out = StringIO()
-        command = 'loadcsv'
-        args = ['--csv', 'catalogue/test/init.csv', '--image_folder', 'product_images/']
+        command = "loadcsv"
+        args = ["--csv", "catalogue/test/init.csv", "--image_folder", "product_images/"]
         with out, redirect_stdout(out):
             call_command(command, args)
             image_path = Tea.objects.get(pk=1).image
-            self.assertEqual('product_images/red1.jpg', image_path)
+            self.assertEqual("product_images/red1.jpg", image_path)
 
-    
     def test_description_generation(self):
         out = StringIO()
-        command = 'loadcsv'
-        args = ['--csv', 'catalogue/test/init.csv', '--lorem_description', True]
+        command = "loadcsv"
+        args = ["--csv", "catalogue/test/init.csv", "--lorem_description", True]
         with out, redirect_stdout(out):
             call_command(command, args)
             description = Tea.objects.get(pk=1).description
-            self.assertNotEqual('', description)
+            self.assertNotEqual("", description)

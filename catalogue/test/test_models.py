@@ -3,6 +3,7 @@ from django.test import TestCase
 from catalogue.models import *
 from test.factories import ProductFactory, TeaFactory, UtensilFactory
 
+
 class TestProductModel(TestCase):
     def test_create_product(self):
         product = ProductFactory.create()
