@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "teahouse"
+version = "0.1.0"
+description = ""
+authors = ["Gvard Windlass <gvard.windlass@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.1.1"
+django-crispy-forms = "^2.0"
+crispy-bootstrap5 = "^0.7"
+django-mptt = "^0.14.0"
+django-configurations = "^2.4.1"
+markdown = "^3.4.3"
+pillow = "^9.5.0"
+lorem = "^0.1.1"
+
+
+[tool.poetry.group.dev.dependencies]
+factory-boy = "^3.2.1"
+selenium = "4.5.0"
+django-selenium-login = "^2.0.0"
+parameterized = "^0.9.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
