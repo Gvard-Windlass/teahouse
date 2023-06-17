@@ -1,29 +1,12 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 from test.factories import ArticleFactory
 
-import test.selenium_setup as setup
+from test.selenium_setup import SeleniumWithFirefox
 
 
-class TestArticlesPage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestArticlesPage(SeleniumWithFirefox):
     def test_articles_page(self):
         ArticleFactory.create_batch(2)
 
@@ -34,21 +17,7 @@ class TestArticlesPage(StaticLiveServerTestCase):
         self.assertEqual(len(articles), 2)
 
 
-class TestArticleDetailsPage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestArticleDetailsPage(SeleniumWithFirefox):
     def test_article_details_page(self):
         article = ArticleFactory.create(body="test body")
 

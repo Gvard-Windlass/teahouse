@@ -1,33 +1,16 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 from seleniumlogin import force_login
 
 from cart.models import Cart
 from test.factories import TeaFactory, UserFactory
 
-import test.selenium_setup as setup
+from test.selenium_setup import SeleniumWithFirefox
 
 
-class TestCartAddPage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestCartAddPage(SeleniumWithFirefox):
     def test_cart_add_page(self):
         user = UserFactory.create()
         TeaFactory.create()
@@ -41,21 +24,7 @@ class TestCartAddPage(StaticLiveServerTestCase):
         self.assertEqual(1, User.objects.first().cart_set.first().id)
 
 
-class TestCartPage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestCartPage(SeleniumWithFirefox):
     def setUp(self) -> None:
         tea = TeaFactory.create()
         self.user = UserFactory.create()

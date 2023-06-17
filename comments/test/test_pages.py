@@ -1,10 +1,7 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.by import By
 from django.urls import reverse
 from django.contrib.auth.models import User
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
@@ -14,24 +11,10 @@ from seleniumlogin import force_login
 from test.factories import TeaFactory, UserFactory
 from comments.models import Comment
 
-import test.selenium_setup as setup
+from test.selenium_setup import SeleniumWithFirefox
 
 
-class TestCommentsDisplay(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestCommentsDisplay(SeleniumWithFirefox):
     def test_comments_display(self):
         product = TeaFactory.create()
         product2 = TeaFactory.create()
@@ -59,21 +42,7 @@ class TestCommentsDisplay(StaticLiveServerTestCase):
         self.assertEqual(len(replies), 1)
 
 
-class TestAddComment(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestAddComment(SeleniumWithFirefox):
     def setUp(self) -> None:
         self.tea = TeaFactory.create()
         self.user = UserFactory.create()

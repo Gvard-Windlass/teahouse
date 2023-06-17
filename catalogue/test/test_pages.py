@@ -1,33 +1,16 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from test.factories import TeaFactory
 
-import test.selenium_setup as setup
+from test.selenium_setup import SeleniumWithFirefox
 
 
-class TestHomePage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestHomePage(SeleniumWithFirefox):
     def test_sidebar_small_screen(self):
         self.selenium.get(f"{self.live_server_url}/")
         self.selenium.set_window_size(width=700, height=500)
@@ -50,21 +33,7 @@ class TestHomePage(StaticLiveServerTestCase):
         self.assertTrue(sidebar.is_displayed())
 
 
-class TestProductsDisplay(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestProductsDisplay(SeleniumWithFirefox):
     def test_tea_display(self):
         TeaFactory.create_batch(2)
 
@@ -102,21 +71,7 @@ class TestProductsDisplay(StaticLiveServerTestCase):
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
 
 
-class TestProductsSearch(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestProductsSearch(SeleniumWithFirefox):
     def setUp(self):
         TeaFactory.create_batch(40)
 
@@ -162,21 +117,7 @@ class TestProductsSearch(StaticLiveServerTestCase):
         WebDriverWait(self.selenium, 10).until(EC.url_changes(current_url))
 
 
-class TestProductDetailPage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestProductDetailPage(SeleniumWithFirefox):
     def test_tea_detail_page(self):
         tea = TeaFactory.create()
 
@@ -192,21 +133,7 @@ class TestProductDetailPage(StaticLiveServerTestCase):
         self.assertNotEqual(initial_total, total_display.text)
 
 
-class TestHomePage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestHomePage(SeleniumWithFirefox):
     def test_tea_detail_page(self):
         TeaFactory.create_batch(2)
 

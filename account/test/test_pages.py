@@ -1,6 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
@@ -10,31 +8,16 @@ from seleniumlogin import force_login
 import re
 
 from django.core import mail
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User, AnonymousUser
 from django.test import Client
 from django.contrib import auth
 from django.urls import reverse
 
 from test.factories import UserFactory
-import test.selenium_setup as setup
+from test.selenium_setup import SeleniumWithFirefox
 
 
-class TestRegistrationPage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestRegistrationPage(SeleniumWithFirefox):
     def test_registration_success(self):
         url = reverse("register")
         self.selenium.get(self.live_server_url + url)
@@ -65,21 +48,7 @@ class TestRegistrationPage(StaticLiveServerTestCase):
         self.assertEqual(str(user.customer.birthday), "2000-01-01")
 
 
-class TestLoginPage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestLoginPage(SeleniumWithFirefox):
     def setUp(self):
         self.client = Client()
 
@@ -106,21 +75,7 @@ class TestLoginPage(StaticLiveServerTestCase):
         self.assertEqual(self.selenium.current_url, f"{self.live_server_url}/")
 
 
-class TestProfilePage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestProfilePage(SeleniumWithFirefox):
     def test_user_update(self):
         user = UserFactory.create(email=None)
         user.customer.birthday = "2000-01-01"
@@ -154,21 +109,7 @@ class TestProfilePage(StaticLiveServerTestCase):
         self.assertEqual(user.email, "test@example.com")
 
 
-class TestPasswordChangePage(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestPasswordChangePage(SeleniumWithFirefox):
     def test_password_chage(self):
         user = UserFactory.create()
         force_login(user, self.selenium, self.live_server_url)
@@ -193,21 +134,7 @@ class TestPasswordChangePage(StaticLiveServerTestCase):
         )
 
 
-class TestPasswordResetPages(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver(
-            firefox_binary=FirefoxBinary(setup.FIREFOX_BINARY_PATH),
-            executable_path=setup.DRIVER_PATH,
-        )
-        cls.selenium.implicitly_wait(10)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
+class TestPasswordResetPages(SeleniumWithFirefox):
     def test_password_reset(self):
         UserFactory.create()
 
