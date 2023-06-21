@@ -5,12 +5,12 @@ Practice project written with django 4.1.1, styled using bootstrap 5.2.2
 Images generated using [Craiyon](https://www.craiyon.com/) and [Stable Diffusion
 Online](https://stablediffusionweb.com/).
 
-To initialize project, load catalogue, comment and article data with following commands:
+To work with the project, use docker:
 ```
-python manage.py loadcsv --csv catalogue/management/commands/init.csv --image_folder product_images --lorem_description True
-python manage.py loadcomments --csv comments/management/commands/init.csv --lorem_text True
-python manage.py loadarticles --csv articles/management/commands/init.csv --image_folder article_images
+docker build --tag teahouse-demo . 
+docker run -p 8000:8000 teahouse-demo
 ```
+Then go to [localhost:8000](localhost:8000/)
 
 ## Screenshots
 ![Home page](screenshots/home.png?raw=true "Home page")
