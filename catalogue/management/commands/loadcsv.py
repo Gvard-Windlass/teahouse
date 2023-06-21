@@ -40,7 +40,7 @@ class Command(BaseCommand):
     def _load_models(self, file_path):
         tables = {}
         header = None
-        with open(file_path) as csvfile:
+        with open(file_path, encoding="cp1251") as csvfile:
             model_data = csv.reader(csvfile)
             for row in model_data:
                 if self._empty_csv_row(row):
