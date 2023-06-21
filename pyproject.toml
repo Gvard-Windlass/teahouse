@@ -15,7 +15,7 @@ django-configurations = "^2.4.1"
 markdown = "^3.4.3"
 pillow = "^9.5.0"
 lorem = "^0.1.1"
-psycopg2 = "^2.9.6"
+psycopg2-binary = "^2.9.6"
 
 
 [tool.poetry.group.dev.dependencies]
