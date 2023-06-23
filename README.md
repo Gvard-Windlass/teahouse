@@ -40,7 +40,7 @@ docker volume create postgres_config
 docker network create postgresnet
 ```
 
-create postgres image:
+create postgres container:
 ```
 docker run -d \
     -v postgres:/var/lib/postgresql/data \
