@@ -1,0 +1,29 @@
+services:
+  postgresdb:
+    image: postgres:15
+    container_name: postgresdb
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - postgres_config:/etc/postgresql/15/main
+    environment:
+      - POSTGRES_DB=teahouse
+      - POSTGRES_PASSWORD=mysecretpassword
+      - PGDATA=/var/lib/postgresql/data/pgdata
+  server:
+    build: .
+    image: teahouse-demo
+    container_name: teahouse-server
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_CONFIGURATION=TeahousePostgres
+      - DB_HOST=postgresdb
+      - DB_PASSWORD=mysecretpassword
+      - DJANGO_SECRET_KEY="django-insecure"
+    depends_on:
+      - postgresdb
+volumes:
+  postgres:
+  postgres_config:

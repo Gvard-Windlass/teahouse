@@ -31,6 +31,19 @@ docker attach teahouse-local
 
 Then go to [localhost:8000](http://localhost:8000/)
 
+### running with postgresql (compose)
+create and start containers:
+```
+docker compose up
+```
+
+run init script to create tables and demo data:
+```
+docker compose exec server /app/init.sh
+```
+
+Then go to [localhost:8000](http://localhost:8000/)
+
 ### running with postgresql (manual)
 build image:
 ```
@@ -54,13 +67,8 @@ docker run -d \
     --name postgresdb \
     -e POSTGRES_PASSWORD=mysecretpassword \
     -e PGDATA=/var/lib/postgresql/data/pgdata \
+    -e POSTGRES_DB=teahouse \
     postgres:15
-```
-
-connect to postgres container with psql and create database:
-```
-docker exec -it postgresdb psql -U postgres
-create database teahouse;
 ```
 
 create server container and run init script to create tables and demo data:
