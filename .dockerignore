@@ -1,1 +1,6 @@
 *.sqlite3
+*.log
+*.cfg
+*.env
+.*/
+__pycache__/
