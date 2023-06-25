@@ -16,7 +16,11 @@ docker build --tag teahouse-demo .
 
 create container and run init script to create tables and demo data:
 ```
-docker run -d -p 8000:8000 --name teahouse-local teahouse-demo
+docker run -d \
+    -p 8000:8000 \
+    --name teahouse-local \
+    -e DJANGO_SECRET_KEY="django-insecure"
+    teahouse-demo
 docker exec teahouse-local /app/init.sh
 ```
 
@@ -68,6 +72,7 @@ docker run -d \
     -e DJANGO_CONFIGURATION=TeahousePostgres \
     -e DB_HOST=postgresdb \
     -e DB_PASSWORD=mysecretpassword \
+    -e DJANGO_SECRET_KEY="django-insecure" \
     teahouse-demo
 docker exec teahouse-server /app/init.sh
 ```
