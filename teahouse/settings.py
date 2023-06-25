@@ -151,10 +151,10 @@ class TeahouseDefault(Configuration):
 class TeahousePostgres(TeahouseDefault):
     # for some reason putting value.Values inside
     # DATABASES dict directly is not working
-    USER = values.Value(environ_prefix="DB")
+    USER = values.Value(environ_prefix="DB", default="postgres")
     PASSWORD = values.Value(environ_prefix="DB")
-    HOST = values.Value(environ_prefix="DB")
-    PORT = values.Value(environ_prefix="DB")
+    HOST = values.Value(environ_prefix="DB", default="localhost")
+    PORT = values.Value(environ_prefix="DB", default="5432")
 
     DATABASES = {
         "default": {
