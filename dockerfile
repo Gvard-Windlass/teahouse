@@ -13,6 +13,10 @@ RUN poetry config virtualenvs.create false \
 
 COPY . /app
 
+# create dummy .env file so django-configurations
+# loads settings properly
+RUN touch /app/.env
+
 EXPOSE 8000
 
 CMD ["python", "manage.py" , "runserver", "0.0.0.0:8000"]
